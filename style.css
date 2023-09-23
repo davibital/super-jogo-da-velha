@@ -1,0 +1,34 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#conteudo-jogo {
+    background-color: black;
+}
+
+
+.grid-jogo {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 5px;
+}
+
+.grid-jogo-pequeno {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-columns: 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px;
+}
+
+.botao-jogo {
+    font-size: 35px;
+    font-weight: bold;
+    border: 1px black solid;
+    cursor: pointer;
+    background-color: white;
+    opacity: 0.95;
+}
+
+.botao-jogo:hover {opacity: 1;}
