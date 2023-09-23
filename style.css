@@ -20,14 +20,15 @@ body {
     grid-template-columns: repeat(3, auto);
     grid-template-columns: 50px 50px 50px;
     grid-template-rows: 50px 50px 50px;
+    gap: 1px;
 }
+
 
 .botao-jogo {
     font-size: 35px;
     font-weight: bold;
-    border: 1px black solid;
+    border: none;
     cursor: pointer;
-    background-color: white;
     opacity: 0.95;
 }
 
