@@ -1,8 +1,16 @@
-const tabuleiro = [
-  [ "X", "O", "X" ],
-  [ "O", "X", "O" ],
-  [ "X", "X", "X" ]
-]
+// Essa lista de listas representa o "Tabuleiro" do jogo. À medida que os eventos acontecem, a lista vai sendo atualizada
+const tabuleiro = [jogo0, jogo1, jogo2, jogo3, jogo4, jogo5, jogo6, jogo7, jogo8]
+
+// Cada uma dessas listas representa um dos "Jogos da Velha Menores", cada elemento dessas listas será substituído por um X ou O a medida que o jogo ocorre.
+const jogo0 = ['','','','','','','','','']
+const jogo1 = ['','','','','','','','','']
+const jogo2 = ['','','','','','','','','']
+const jogo3 = ['','','','','','','','','']
+const jogo4 = ['','','','','','','','','']
+const jogo5 = ['','','','','','','','','']
+const jogo6 = ['','','','','','','','','']
+const jogo7 = ['','','','','','','','','']
+const jogo8 = ['','','','','','','','','']
 
 /**
  * Esta função serve para verificar as linhas do tabuleiro e retornar se existe alguma linha vencedora, ou seja, alguma linha completa com um único símbolo X ou O.
