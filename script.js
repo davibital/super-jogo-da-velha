@@ -1,30 +1,44 @@
-// Cada uma destas listas representa um dos "Jogos da Velha Menores", cada elemento dessas listas será substituído por um X ou O a medida que o jogo ocorre.
-const jogo0 = ['','','','','','','','','']
-const jogo1 = ['','','','','','','','','']
-const jogo2 = ['','','','','','','','','']
-const jogo3 = ['','','','','','','','','']
-const jogo4 = ['','','','','','','','','']
-const jogo5 = ['','','','','','','','','']
-const jogo6 = ['','','','','','','','','']
-const jogo7 = ['','','','','','','','','']
-const jogo8 = ['','','','','','','','','']
+import { criarTabuleiro } from './utils.js'
 
-// Esta lista de listas representa o "Tabuleiro" do jogo. À medida que os eventos acontecem, a lista vai sendo atualizada
-const tabuleiro = [jogo0, jogo1, jogo2, jogo3, jogo4, jogo5, jogo6, jogo7, jogo8]
+const tabuleiroGrandeVazio = criarTabuleiro(3)(3)
+
+const tabuleiroGrande = tabuleiroGrandeVazio.map(linha => linha.map(() => criarTabuleiro(3)(3)))
 
 /**
  * Esta função é responsável pelo evento de clicar num botão. Ao clicar no botão, a função escreve na página um "X" ou "O" e atualiza a lista "tabuleiro".
- * @param {id} id - Índice (ou posição) do botão na página. 
+ * @param {botao} botao - Botão da página que recebeu o clique
  * @param {turno} turno - Parâmetro que determina de quem é o turno na jogada, se é do "X" ou do "O".
  */
-const clicarBotao = (id, turno = 'O') => {
-  const idJogo = parseInt(id.charAt(0))
-  const idQuadrado = parseInt(id.charAt(1))
-  
-  tabuleiro[idJogo][idQuadrado] = turno
-  document.getElementById(id).innerHTML = turno
-  console.log(jogo0, jogo1, jogo2, jogo3, jogo4, jogo5, jogo6, jogo7, jogo8)
+const clicarBotao = (botao, turno = 'O') => {
+
+  // Obtendo a div em que o botão está localizado
+  const elementoPai = botao.parentElement
+  // Obtendo a localização do jogo em que foi feita a jogada, que se refere à posição do tabuleiro maior
+  const linhaTabuleiroGrande = elementoPai.id[0]
+  const colunaTabuleiroGrande = elementoPai.id[1]
+
+  // Obtendo os índices do tabuleiro pequeno, onde de fato foi feita a jogada
+  const linhaTabuleiroPequeno = botao.className[0]
+  const colunaTabuleiroPequeno = botao.className[1]
+
+  const tabuleiroPequeno = tabuleiroGrande[linhaTabuleiroGrande][colunaTabuleiroGrande]
+
+  console.log("Linha do tabuleiro grande: ", linhaTabuleiroGrande)
+  console.log("Coluna do tabuleiro grande: ", colunaTabuleiroGrande)
+  console.log("Linha do tabuleiro pequeno: ", linhaTabuleiroPequeno)
+  console.log("Coluna do tabuleiro pequeno: ", colunaTabuleiroPequeno)
+
+  // Atualização da interface e também da matriz do tabuleiro pequeno
+  botao.innerHTML = turno
+  tabuleiroPequeno[linhaTabuleiroPequeno][colunaTabuleiroPequeno] = turno
+  console.log(tabuleiroPequeno)
+
+  // Aqui embaixo devem ocorrer as verificações para finalizar a jogada
 }
+
+// Adicionando a função de clique para todos os botões da página
+const botoes = Array.from(document.querySelectorAll("button"))
+botoes.map(botao => botao.addEventListener("click", () => clicarBotao(botao)))
 
 /**
  * Esta função serve para verificar as linhas do tabuleiro e retornar se existe alguma linha vencedora, ou seja, alguma linha completa com um único símbolo X ou O.
