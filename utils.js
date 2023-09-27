@@ -12,6 +12,7 @@ const criarTabuleiro = (linhas) => (colunas) => {
   }
 }
 
+
 const transposta = (matriz) => {
   const transformarColunaEmLinha = (matriz, coluna) => matriz.map((linha) => linha[coluna])
   const transpostaAux = (matriz, coluna = 0) => {
@@ -21,4 +22,12 @@ const transposta = (matriz) => {
   return transpostaAux(matriz)
 }
 
-export { criarTabuleiro, transposta }
+const traco = (matriz) => {
+  const tracoAux = ([x, ...xs], coluna = 0) => {
+    if (typeof x == "undefined") return ''
+    else return x[coluna] + tracoAux(xs, coluna += 1)
+  }
+  return tracoAux(matriz)
+}
+
+//export { criarTabuleiro, transposta }
