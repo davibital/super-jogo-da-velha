@@ -30,4 +30,13 @@ const tracoMatriz = (matriz) => {
   return tracoAux(matriz)
 }
 
-export { criarTabuleiro, transpostaMatriz, tracoMatriz }
+const tracoSecundario = (matriz) => {
+  const tracoAux = ([x, ...xs], coluna = matriz.length - 1) => {
+    if (typeof x == "undefined") return ''
+    else return x[coluna] + tracoAux(xs, coluna -= 1)
+  }
+  return tracoAux(matriz)
+}
+
+
+export { criarTabuleiro, transpostaMatriz, tracoMatriz, tracoSecundario }
