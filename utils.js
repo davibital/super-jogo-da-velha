@@ -13,7 +13,7 @@ const criarTabuleiro = (linhas) => (colunas) => {
 }
 
 
-const transposta = (matriz) => {
+const transpostaMatriz = (matriz) => {
   const transformarColunaEmLinha = (matriz, coluna) => matriz.map((linha) => linha[coluna])
   const transpostaAux = (matriz, coluna = 0) => {
     if (coluna > matriz.length - 1) return []
@@ -22,7 +22,7 @@ const transposta = (matriz) => {
   return transpostaAux(matriz)
 }
 
-const traco = (matriz) => {
+const tracoMatriz = (matriz) => {
   const tracoAux = ([x, ...xs], coluna = 0) => {
     if (typeof x == "undefined") return ''
     else return x[coluna] + tracoAux(xs, coluna += 1)
@@ -30,4 +30,4 @@ const traco = (matriz) => {
   return tracoAux(matriz)
 }
 
-//export { criarTabuleiro, transposta }
+export { criarTabuleiro, transpostaMatriz, tracoMatriz }
