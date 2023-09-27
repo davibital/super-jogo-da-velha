@@ -11,4 +11,14 @@ const criarTabuleiro = (linhas) => (colunas) => {
       return ['', ...criarLinha(colunas - 1)]
   }
 }
-export { criarTabuleiro }
+
+const transposta = (matriz) => {
+  const transformarColunaEmLinha = (matriz, coluna) => matriz.map((linha) => linha[coluna])
+  const transpostaAux = (matriz, coluna = 0) => {
+    if (coluna > matriz.length - 1) return []
+    else return [transformarColunaEmLinha(matriz, coluna), ...transpostaAux(matriz, coluna += 1)]
+  }
+  return transpostaAux(matriz)
+}
+
+export { criarTabuleiro, transposta }
