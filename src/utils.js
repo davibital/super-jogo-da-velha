@@ -12,7 +12,6 @@ const criarTabuleiro = (linhas) => (colunas) => {
   }
 }
 
-
 const transpostaMatriz = (matriz) => {
   const transformarColunaEmLinha = (matriz, coluna) => matriz.map((linha) => linha[coluna])
   const transpostaAux = (matriz, coluna = 0) => {
@@ -38,15 +37,8 @@ const tracoSecundario = (matriz) => {
   return tracoAux(matriz)
 }
 
-const verificarCaracteresIguais = (str) => {
-  const verificarAux = (str, acc = 0) => {
-    const x = str[acc] // A constante 'x' é o caractere na posição 'acc' na string.
-    const y = str[acc+1] // A constante 'y' é o caractere que ocupado uma posição a frente do caractere armazenado em 'x'.
-    if (typeof x == "undefined") return true // Esse caso base retorna true quando a string de entrada é vazia.
-    else if (typeof y == "undefined") return true // Quando a string de entrada tem apenas um caractere, retorna true. Esse caso base é o caso que dá o stop na recursão. 
-    else return (x === y) && verificarAux(str, acc += 1) // Fórmula Recursiva
-  }
-  return verificarAux(str)
+const removerAcaoBotoes = (listaBotoes, funcao) => {
+  listaBotoes.map(botao => botao.removeEventListener("click", funcao))
 }
 
-export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais }
+export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, removerAcaoBotoes }
