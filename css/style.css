@@ -23,7 +23,6 @@ body {
     gap: 1px;
 }
 
-
 .grid-jogo-pequeno button {
     font-size: 35px;
     font-weight: bold;
@@ -32,4 +31,4 @@ body {
     opacity: 0.95;
 }
 
-.botao-jogo:hover {opacity: 1;}
+.grid-jogo-pequeno button:hover {opacity: 1;}
