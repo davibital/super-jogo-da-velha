@@ -1,13 +1,4 @@
-const verificarCaracteresIguais = (str) => {
-  const verificarAux = (str, acc = 0) => {
-    const x = str[acc] // A constante 'x' é o caractere na posição 'acc' na string.
-    const y = str[acc+1] // A constante 'y' é o caractere que ocupado uma posição a frente do caractere armazenado em 'x'.
-    if (typeof x == "undefined") return true // Esse caso base retorna true quando a string de entrada é vazia.
-    else if (typeof y == "undefined") return true // Quando a string de entrada tem apenas um caractere, retorna true. Esse caso base é o caso que dá o stop na recursão. 
-    else return (x === y) && verificarAux(str, acc += 1) // Fórmula Recursiva
-  }
-  return verificarAux(str)
-}
+import * as utils from './utils.js';
 
 /**
  * Esta função serve para verificar as linhas do tabuleiro e retornar se existe alguma linha vencedora, ou seja, alguma linha completa com um único símbolo X ou O.
@@ -22,8 +13,6 @@ const verificarLinhas = ([...tabuleiro]) => {
     }
     return estadoLinha
   }, false)
-
-  console.log(existeLinhaGanhadora)
 
   return existeLinhaGanhadora
 
@@ -47,4 +36,26 @@ const verificarLinhas = ([...tabuleiro]) => {
   }
 }
 
-export {verificarLinhas, verificarCaracteresIguais }
+const verificarColunas = (tabuleiro) => {
+  const tabuleiroTransposto = utils.transpostaMatriz(tabuleiro)
+  return verificarLinhas(tabuleiroTransposto)
+}
+
+const verificarDiagonais = (tabuleiro) => {
+  const tamanhoTabuleiro = tabuleiro.length
+
+  const verificarDiagonalPrincipal = (tabuleiro) => {
+    const strTracoPrincipal = utils.tracoPrincipal(tabuleiro)
+    return (strTracoPrincipal.length === tamanhoTabuleiro) && utils.verificarCaracteresIguais(strTracoPrincipal)
+  }
+  const verificarDiagonalSecundaria = (tabuleiro) => {
+    const strTracoSecundario = utils.tracoSecundario(tabuleiro)
+    return (strTracoSecundario.length === tamanhoTabuleiro) && utils.verificarCaracteresIguais(strTracoSecundario)
+  }
+
+  return verificarDiagonalPrincipal(tabuleiro) || verificarDiagonalSecundaria(tabuleiro)
+}
+
+const verificarVencedor = (tabuleiro) => verificarLinhas(tabuleiro) || verificarColunas(tabuleiro) || verificarDiagonais(tabuleiro)
+
+export { verificarVencedor }

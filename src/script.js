@@ -1,5 +1,5 @@
 import { criarTabuleiro, removerAcaoBotoes } from './utils.js'
-import { verificarLinhas, verificarCaracteresIguais } from './verificacoes.js'
+import { verificarVencedor } from './verificacoes.js'
 
 const tabuleiroGrandeVazio = criarTabuleiro(3)(3)
 
@@ -34,10 +34,13 @@ const clicarBotao = (eventoClique, turno = 'O') => {
   botao.removeEventListener("click", clicarBotao)
 
   // Aqui embaixo devem ocorrer as verificações para finalizar a jogada
-  if (verificarLinhas(tabuleiroPequeno)) {
+  if (verificarVencedor(tabuleiroPequeno)) {
     tabuleiroGrande[linhaTabuleiroGrande][colunaTabuleiroGrande] = turno
     const listaBotoes = Array.from(elementoPai.querySelectorAll("button"))
     removerAcaoBotoes(listaBotoes, clicarBotao)
+
+    console.log('VENCEU')
+
     // elementoPai.innerHTML += `<p>${turno}</p>`
   }
 }
