@@ -49,6 +49,8 @@ const verificarLinhas = ([...tabuleiro]) => {
     return estadoLinha
   }, false)
 
+  console.log(existeLinhaGanhadora)
+
   return existeLinhaGanhadora
 
   /**
