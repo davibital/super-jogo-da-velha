@@ -23,17 +23,12 @@ const clicarBotao = (botao, turno = 'O') => {
 
   const tabuleiroPequeno = tabuleiroGrande[linhaTabuleiroGrande][colunaTabuleiroGrande]
 
-  console.log("Linha do tabuleiro grande: ", linhaTabuleiroGrande)
-  console.log("Coluna do tabuleiro grande: ", colunaTabuleiroGrande)
-  console.log("Linha do tabuleiro pequeno: ", linhaTabuleiroPequeno)
-  console.log("Coluna do tabuleiro pequeno: ", colunaTabuleiroPequeno)
-
   // Atualização da interface e também da matriz do tabuleiro pequeno
   botao.innerHTML = turno
   tabuleiroPequeno[linhaTabuleiroPequeno][colunaTabuleiroPequeno] = turno
-  console.log(tabuleiroPequeno)
 
   // Aqui embaixo devem ocorrer as verificações para finalizar a jogada
+  verificarLinhas(tabuleiroPequeno)
 }
 
 // Adicionando a função de clique para todos os botões da página
@@ -43,41 +38,36 @@ botoes.map(botao => botao.addEventListener("click", () => clicarBotao(botao)))
 /**
  * Esta função serve para verificar as linhas do tabuleiro e retornar se existe alguma linha vencedora, ou seja, alguma linha completa com um único símbolo X ou O.
  * @param {tabuleiro} tabuleiro - Matriz de duas dimensões, correspondente ao tabuleiro do jogo.
- * @returns Registro contendo o índice da linha vencedora e o símbolo vencedor, caso não exista vencedor, os valores desses campos serão igual a false.
+ * @returns Valor booleano que indica se existe alguma linha ganhadora, ou seja, uma linha com todos os elementos iguais, desconsiderando o elemento vazio.
  */
 const verificarLinhas = ([...tabuleiro]) => {
-  const simboloUnicoPorLinha = tabuleiro.map(linha => linhaPossuiSimboloUnico(linha))
 
-  return linhaESimboloVencedor(simboloUnicoPorLinha)
+  const existeLinhaGanhadora = tabuleiro.reduce((estadoLinha, linha) => {
+    if (linhaTemSimboloUnico(linha)) {
+      estadoLinha = true
+    }
+    return estadoLinha
+  }, false)
+
+  return existeLinhaGanhadora
 
   /**
    * Esta função serve para verificar se a linha possui algum símbolo único.
    * @param {linha} linha - Lista contendo os símbolos jogados na linha.
-   * @returns Lista contendo os símbolos únicos de cada linha, caso não exista símbolo único na linha, o símbolo é vazio('').
+   * @returns Lista contendo os valores booleanos para cada linha, caso exista.
    */
-  function linhaPossuiSimboloUnico(linha) {
-    return linha.reduce((simboloAnterior, simbolo, indice) => {
-      if (indice == 0)
-        return simbolo
-      else if (simbolo == simboloAnterior)
-        return simbolo
-      else return ''
-    }, '')
-  }
-
-  /**
-   * Esta função tem como objetivo percorrer uma lista e retornar um registro contendo o símbolo vencedor e o índice da linha correspondente
-   * @param {*} simbolosUnicos - Lista contendo os símbolos únicos de cada linha.
-   * @param {*} indice - Índice da linha correspondente, seu valor inicial é igual a 0.
-   * @returns Registro contendo o índice da linha vencedora e o símbolo vencedor, caso não exista vencedor, os valores desses campos serão igual a false. 
-   */
-  function linhaESimboloVencedor([simbolo, ...simbolosUnicos], indice = 0) {
-    if (simbolo == 'X' || simbolo == 'O')
-      return { linha: indice, simbolo: simbolo }
-    else if (simbolosUnicos.length == 0)
-      return { linha: false, simbolo: false }
-    else
-      return linhaESimboloVencedor(simbolosUnicos, indice + 1)
+  function linhaTemSimboloUnico([simbolo, ...linha]) {
+    if (linha.length == 0)
+      return true
+    if (simbolo == '')
+      return false
+    else {
+      const proximoSimbolo = linha[0]
+      if (simbolo != proximoSimbolo)
+        return false
+      else
+        return linhaTemSimboloUnico(linha)
+    }
   }
 }
 
