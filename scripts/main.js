@@ -1,52 +1,81 @@
 import { criarTabuleiro, removerAcaoBotoes } from './utils.js'
 import { verificarVencedor } from './verificacoes.js'
 
-const tabuleiroGrandeVazio = criarTabuleiro(3)(3)
+// Cria um tabuleiro 3x3 para o jogo grande
+const tabuleiroGrande = Array.from({ length: 3 }, () => Array.from({ length: 3 }, () => criarTabuleiro(3)(3)));
 
-const tabuleiroGrande = tabuleiroGrandeVazio.map(linha => linha.map(() => criarTabuleiro(3)(3)))
+// Variável para armazenar o turno atual
+let turnoAtual = 'O';
 
-/**
- * Esta função é responsável pelo evento de clicar num botão. Ao clicar no botão, a função escreve na página um "X" ou "O" e atualiza a lista "tabuleiro".
- * @param {botao} botao - Botão da página que recebeu o clique
- * @param {turno} turno - Parâmetro que determina de quem é o turno na jogada, se é do "X" ou do "O".
- */
-const clicarBotao = (eventoClique, turno = 'O') => {
-  // Obtendo o botão que foi acionado
-  const botao = eventoClique.srcElement
+// Objeto para armazenar o placar
+let placar = { 'O': 0, 'X': 0 };
 
-  // Obtendo a div em que o botão está localizado
-  const elementoPai = botao.parentElement
+// Função para atualizar o placar na interface
+const atualizarPlacar = () => {
+  document.getElementById('placarO').innerText = `Jogador 1 (O): ${placar['O']}`;
+  document.getElementById('placarX').innerText = `Jogador 2 (X): ${placar['X']}`;
+}
 
-  // Obtendo a localização do jogo em que foi feita a jogada, que se refere à posição do tabuleiro maior
-  const linhaTabuleiroGrande = elementoPai.id[0]
-  const colunaTabuleiroGrande = elementoPai.id[1]
+// Função para mudar o turno
+const atualizarTurno = () => {
+  turnoAtual = turnoAtual === 'O' ? 'X' : 'O';
+}
 
-  // Obtendo os índices do tabuleiro pequeno, onde de fato foi feita a jogada
-  const linhaTabuleiroPequeno = botao.className[0]
-  const colunaTabuleiroPequeno = botao.className[1]
-
-  const tabuleiroPequeno = tabuleiroGrande[linhaTabuleiroGrande][colunaTabuleiroGrande]
-
-  // Atualização da interface e também da matriz do tabuleiro pequeno
-  tabuleiroPequeno[linhaTabuleiroPequeno][colunaTabuleiroPequeno] = turno
-  botao.innerHTML = turno
-  // Removendo ação de clique do botão
-  botao.removeEventListener("click", clicarBotao)
-
-  // Aqui embaixo devem ocorrer as verificações para finalizar a jogada
-  if (verificarVencedor(tabuleiroPequeno)) {
-    tabuleiroGrande[linhaTabuleiroGrande][colunaTabuleiroGrande] = turno
-    const listaBotoes = Array.from(elementoPai.querySelectorAll("button"))
-    removerAcaoBotoes(listaBotoes, clicarBotao)
-
-    console.log('VENCEU')
-
-    // elementoPai.innerHTML += `<p>${turno}</p>`
+// Função para verificar o estado geral do jogo
+const verificarEstadoJogo = () => {
+  const vencedor = verificarVencedor(tabuleiroGrande);
+  if (vencedor) {
+    alert(`${vencedor} VENCEU O JOGO!`);
+    // Aqui podemos adicionar código para encerrar o jogo, se assim desejar
   }
 }
 
-// Adicionando a função de clique para todos os botões da página
-const botoes = Array.from(document.querySelectorAll("button"))
-botoes.map(botao => botao.addEventListener("click", clicarBotao))
+// Função para lidar com uma vitória em um tabuleiro pequeno
+const manipularVitoria = (elementoPai, linhaGrande, colunaGrande) => {
+  // Atualiza o tabuleiro grande com o vencedor do tabuleiro pequeno
+  tabuleiroGrande[linhaGrande][colunaGrande] = turnoAtual;
+  // Remove ação de todos os botões do tabuleiro pequeno vencido
+  const listaBotoes = Array.from(elementoPai.querySelectorAll("button"));
+  removerAcaoBotoes(listaBotoes, clicarBotao);
+  // Atualiza o placar
+  placar[turnoAtual]++;
+  // Atualiza o placar na interface
+  atualizarPlacar();
+  // Exibe um alerta indicando quem venceu o tabuleiro pequeno
+  alert(`Jogador ${turnoAtual === 'O' ? 1 : 2} venceu o tabuleiro pequeno`);
+}
 
-//console.log(verificarLinhas(tabuleiro))
+// Função para lidar com o evento de clique em um botão
+const clicarBotao = (eventoClique) => {
+  // Obtém o botão clicado
+  const botao = eventoClique.srcElement;
+  // Obtém o elemento pai do botão
+  const elementoPai = botao.parentElement;
+  // Obtém as coordenadas do tabuleiro grande
+  const linhaGrande = elementoPai.id[0];
+  const colunaGrande = elementoPai.id[1];
+  // Obtém as coordenadas do tabuleiro pequeno
+  const linhaPequeno = botao.className[0];
+  const colunaPequeno = botao.className[1];
+  // Obtém o tabuleiro pequeno correspondente no tabuleiro grande
+  const tabuleiroPequeno = tabuleiroGrande[linhaGrande][colunaGrande];
+  // Atualiza o tabuleiro pequeno e a interface
+  tabuleiroPequeno[linhaPequeno][colunaPequeno] = turnoAtual;
+  botao.innerHTML = turnoAtual;
+  // Remove o evento de clique para esse botão
+  botao.removeEventListener("click", clicarBotao);
+  // Verifica se há um vencedor no tabuleiro pequeno
+  if (verificarVencedor(tabuleiroPequeno)) {
+    manipularVitoria(elementoPai, linhaGrande, colunaGrande);
+  }
+  // Muda o turno
+  atualizarTurno();
+  // Verifica o estado geral do jogo
+  verificarEstadoJogo();
+}
+
+// Associa o evento de clique a todos os botões
+document.querySelectorAll("button").forEach(botao => botao.addEventListener("click", clicarBotao));
+
+// Inicializa o placar na interface
+atualizarPlacar();
