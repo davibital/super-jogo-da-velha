@@ -1,3 +1,9 @@
+/**
+ * Esta função serve para criar um tabuleiro (Jogo da Velha) de tamanho determinado.
+ * @param {Number} linhas - Número de linhas.
+ * @param {Number} colunas - Número de colunas.
+ * @returns {Array} - Retorna uma matriz cujos elementos são strings vazias (''). 
+ */
 const criarTabuleiro = (linhas) => (colunas) => {
   if (linhas == 0)
     return []
@@ -57,7 +63,7 @@ const tracoSecundario = (matriz) => {
 
 /**
  * Esta função serve para verificar se todos os caracteres de uma string são iguais.
- * @param {str} str - Uma string (conjunto de caracteres).
+ * @param {String} str - Uma string (conjunto de caracteres).
  * @returns {Boolean} - Valor booleano que indica se todos os caracteres são iguais ou não.
  */
 const verificarCaracteresIguais = (str) => {
@@ -92,6 +98,11 @@ const aninhar = (lista, tamanhoListas) => {
   else return [lista.slice(0, tamanhoListas), ...aninhar(lista.slice(tamanhoListas), tamanhoListas)]
 } 
 
+/**
+ * Esta função serve para remover uma ação relacionada ao clique de um botão.
+ * @param {Array} listaBotoes - Lista com os botões presentes no HTML.
+ * @param {Function} funcao - Função que será removida.
+ */
 const removerAcaoBotoes = (listaBotoes, funcao) => {
   listaBotoes.map(botao => botao.removeEventListener("click", funcao))
 }
