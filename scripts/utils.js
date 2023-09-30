@@ -48,8 +48,18 @@ const verificarCaracteresIguais = (str) => {
   return verificarAux(str)
 }
 
+const desaninhar = ([x, ...xs]) => {
+  if (typeof x == "undefined") return []
+  else return [...x, ...desaninhar(xs)]
+}
+
+const aninhar = (lista, tamanhoListas) => {
+  if (lista.length === 0) return []
+  else return [lista.slice(0, tamanhoListas), ...aninhar(lista.slice(tamanhoListas), tamanhoListas)]
+} 
+
 const removerAcaoBotoes = (listaBotoes, funcao) => {
   listaBotoes.map(botao => botao.removeEventListener("click", funcao))
 }
 
-export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, removerAcaoBotoes, verificarCaracteresIguais }
+export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes }
