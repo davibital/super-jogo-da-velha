@@ -1,11 +1,15 @@
-import { criarTabuleiro, removerAcaoBotoes } from './utils.js'
+import { criarTabuleiro, removerAcaoBotoes, gerarSequenciaTurnos } from './utils.js'
 import { verificarVencedor } from './verificacoes.js'
 
 // Cria um tabuleiro 3x3 para o jogo grande
 const tabuleiroGrande = Array.from({ length: 3 }, () => Array.from({ length: 3 }, () => criarTabuleiro(3)(3)));
 
+const jogadores = [{ nome: 'J1', simbolo: 'X' }, { nome: 'J2', simbolo: 'O' }];
+const sequenciaTurnos = gerarSequenciaTurnos(jogadores);
+console.log("Esta é a sequência do jogo: ", sequenciaTurnos);
+
 // Variável para armazenar o turno atual
-let turnoAtual = 'O';
+let turnoAtual = sequenciaTurnos[0];
 
 // Objeto para armazenar o placar
 let placar = { 'O': 0, 'X': 0 };
