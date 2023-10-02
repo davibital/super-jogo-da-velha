@@ -21,7 +21,23 @@ body {
     grid-template-columns: 50px 50px 50px;
     grid-template-rows: 50px 50px 50px;
     gap: 1px;
+    position:relative
 }
+
+.vencedor {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Um fundo escuro transparente */
+    display: none; /* Inicialmente invisível */
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+
+}
+
 
 .grid-jogo-pequeno button {
     font-size: 35px;

@@ -30,6 +30,16 @@ const verificarEstadoJogo = () => {
   }
 }
 
+// Esta função permite que o simbolo seja ilustrado sobreposto ao Tabuleiro Menor.
+const VencedorNoTabuleiromenor = (elementoDoTabuleiroMenor,SimboloVencedor) => {
+// Esta linha procura por um elemento que tenha a classe CSS "vencedor".
+  const simbolo = elementoDoTabuleiroMenor.querySelector('.vencedor');
+//Esta linha faz com o simbolo vencedor seja exibido como dentro do tabuleiro menor. 
+  simbolo.innerText = SimboloVencedor;
+//Esta linha tornar o simbolo visivel.  
+  simbolo.style.display = 'flex'; 
+};
+
 // Função para lidar com uma vitória em um tabuleiro pequeno
 const manipularVitoria = (elementoPai, linhaGrande, colunaGrande) => {
   // Atualiza o tabuleiro grande com o vencedor do tabuleiro pequeno
@@ -43,6 +53,11 @@ const manipularVitoria = (elementoPai, linhaGrande, colunaGrande) => {
   atualizarPlacar();
   // Exibe um alerta indicando quem venceu o tabuleiro pequeno
   alert(`Jogador ${turnoAtual === 'O' ? 1 : 2} venceu o tabuleiro pequeno`);
+
+  // Exibe o símbolo do jogador vencedor na grade menor correspondente.
+   VencedorNoTabuleiromenor(elementoPai, turnoAtual);
+
+
 }
 
 // Função para lidar com o evento de clique em um botão
