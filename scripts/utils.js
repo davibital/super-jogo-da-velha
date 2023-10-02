@@ -107,4 +107,20 @@ const removerAcaoBotoes = (listaBotoes, funcao) => {
   listaBotoes.map(botao => botao.removeEventListener("click", funcao))
 }
 
-export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes }
+/**
+ * Esta função serve para sortear o primeiro jogador a jogar.
+ * @param {Array} listaJogadores - Lista contendo os registros dos jogadores, com nome e o seu respectivo símbolo
+ * @returns {Array} - Uma sequência com os símbolos dos jogadores participantes do jogo
+ */
+const gerarSequenciaTurnos = (listaJogadores) => {
+  const numeroJogadores = listaJogadores.length;
+  const jogadorComeca = Math.floor(Math.random() * numeroJogadores);
+  const primeiroJogador = listaJogadores[jogadorComeca];
+  const restoJogadores = listaJogadores.filter((jogador, indice) => indice != jogadorComeca);
+
+  const sequenciaSimbolos = [primeiroJogador.simbolo, ...restoJogadores.map(jogador => jogador.simbolo)]
+
+  return sequenciaSimbolos;
+}
+
+export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, gerarSequenciaTurnos }
