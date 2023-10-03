@@ -1,3 +1,5 @@
+import { criarTabuleiro } from '../scripts/utils.js';
+
 // Esse arquivo possui todas as funções de manipulação da página HTML, trabalhando com DOM.
 
 /**
@@ -134,8 +136,75 @@ const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formul
 
   const dimensoesTabuleiro = formularioTabuleiro.querySelector("#dimensoes-tabuleiro").value;
 
-  console.log("Jogador 1: ", primeiroJogador);
-  console.log("Jogador 2: ", segundoJogador);
+  const conteudoJogo = `<div id="conteudo-jogo">${criarTabuleiroGrande(dimensoesTabuleiro, dimensoesTabuleiro)}</div>`;
 
-  console.log(`Dimensões do tabuleiro: ${dimensoesTabuleiro}x${dimensoesTabuleiro}`);
+  const painelJogo = document.getElementById("painel-jogo");
+  painelJogo.innerHTML = conteudoJogo;
+
+  /**
+   * Função para criar o HTML do tabuleiro grande
+   * @param {Number} linhas - Quantidade de linhas do tabuleiro
+   * @param {Number} colunas - Quantidade de colunas do tabuleiro
+   * @returns {String} String contendo o código HTML do tabuleiro grande
+   */
+  function criarTabuleiroGrande(linhas, colunas) {
+    const divTabuleiroGrande =
+      `<div class="grid-jogo">
+        ${criarTabuleiroGrandeAux(linhas, colunas)}
+       </div>
+      `;
+    
+    return divTabuleiroGrande;
+
+    /**
+     * Função para criar os elementos do tabuleiro grande
+     * @param {Number} linhas - Quantidade de linhas do tabuleiro
+     * @param {Number} colunas - Quantidade de colunas do tabuleiro
+     * @returns {String} String contendo o código HTML dos elementos do tabuleiro grande
+     */
+    function criarTabuleiroGrandeAux(linhas, colunas) {
+      const tabuleiro = criarTabuleiro(linhas)(colunas);
+
+      const tabuleiroGrande =
+        tabuleiro.reduce((acc, linha, indiceLinha) => acc +
+          linha.reduce((acc, coluna, indiceColuna) =>
+            `
+          ${acc}
+          <div id="${indiceLinha}${indiceColuna}" class="grid-jogo-pequeno">
+            ${criarTabuleiroPequeno(linhas, colunas)}
+          </div>
+          `
+          , ''),
+        '');
+
+      return tabuleiroGrande;
+    }
+
+    /**
+     * Função para criar os elementos HTML do tabuleiro pequeno
+     * @param {Number} linhas - Quantidade de linhas do tabuleiro
+     * @param {Number} colunas - Quantidade de colunas do tabuleiro
+     * @returns {String} String contendo o código HTML dos elementos do tabuleiro grande
+     */
+    function criarTabuleiroPequeno(linhas, colunas) {
+      const tabuleiro = criarTabuleiro(linhas)(colunas);
+
+      const tabuleirosPequenos =
+        tabuleiro.reduce((acc, linha, indiceLinha) => acc +
+          linha.reduce((acc, coluna, indiceColuna) =>
+            `
+          ${acc}
+          <button class="${indiceLinha}${indiceColuna}"></button>
+          `
+          , ''),
+        '');
+
+      return tabuleirosPequenos;
+    }
+  }
 }
+
+const botaoJogar = document.getElementById("botao-jogar");
+const botaoRegras = document.getElementById("botao-regras");
+botaoJogar.addEventListener("click", configurarJogo);
+botaoRegras.addEventListener("click", mostrarRegras);
