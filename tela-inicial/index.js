@@ -1,5 +1,8 @@
-// Esse arquivo possui todas as funções de manipulação da página HTML, trabalhando com DOM
+// Esse arquivo possui todas as funções de manipulação da página HTML, trabalhando com DOM.
 
+/**
+ * Função para mostrar para o usuário um painel contendo as regras do jogo.
+ */
 const mostrarRegras = () => {
   const painelJogo = document.getElementById("painel-jogo");
   const botoes = Array.from(painelJogo.querySelectorAll("h1"));
@@ -36,6 +39,9 @@ const mostrarRegras = () => {
   painelJogo.appendChild(containerRegras);
 }
 
+/**
+ * Função para remover as regras da tela do usuário e voltar para a tela anterior.
+ */
 const fecharRegras = () => {
   const painelJogo = document.getElementById("painel-jogo");
   const containerRegras = document.getElementById("container-regras");
@@ -45,6 +51,9 @@ const fecharRegras = () => {
   botoes.map(botao => botao.removeAttribute("hidden"));
 }
 
+/**
+ * Função para configurações do jogo, mostra para o usuário um formulário a ser preenchido, nesse formulário devem ser informados os nomes dos dois jogadores, os seus respectivos símbolos e as dimensões do tabuleiro do jogo.
+ */
 const configurarJogo = () => {
   const painelJogo = document.getElementById("painel-jogo");
   painelJogo.innerHTML = '';
@@ -58,7 +67,7 @@ const configurarJogo = () => {
   
   const botaoIniciar = document.createElement("button");
   botaoIniciar.setAttribute("id", "botao-iniciar");
-  botaoIniciar.onclick = iniciarJogo;
+  botaoIniciar.addEventListener("click", evento => iniciarJogo(formularioPrimeiroJogador, formularioSegundoJogador, formularioTabuleiro));
   botaoIniciar.innerText = "Iniciar";
   
   configuracoesJogo.appendChild(formularioPrimeiroJogador);
@@ -68,6 +77,12 @@ const configurarJogo = () => {
   
   painelJogo.appendChild(configuracoesJogo);
   
+  /**
+   * Função para criar o formulário do jogador, para que ele informe o seu nome e o seu símbolo.
+   * @param {String} idFormulario - Id da tag form do HTML.
+   * @param {Number} numeroJogador - Número do jogador que será apresentado na tela.
+   * @returns {HTMLElement} tag form do HTML.
+   */
   function criarFormularioJogador(idFormulario, numeroJogador) {
     const formulario = document.createElement("form");
     formulario.setAttribute("id", idFormulario);
@@ -75,14 +90,19 @@ const configurarJogo = () => {
       `
       <h1>Jogador ${numeroJogador}</h1>
       <label for="nome-jogador">Nome:</label><br>
-      <input type="text" class="nome-jogador"><br>
+      <input type="text" id="nome-jogador"><br>
       <label for="simbolo-jogador">Símbolo</label><br>
-      <input type="text" class="simbolo-jogador" minlength="1" maxlength="1"><br>
+      <input type="text" id="simbolo-jogador" minlength="1" maxlength="1"><br>
       `
     
     return formulario;
   }
 
+  /**
+   * Função para criar o formulário do tabuleiro, apenas contendo o campo de dimensões do tabuleiro
+   * @param {String} idFormulario - Id da tag form do HTML
+   * @returns {HTMLElement} tag form do HTML
+   */
   function criarFormularioTabuleiro(idFormulario) {
     const formulario = document.createElement("form");
     formulario.setAttribute("id", idFormulario);
@@ -97,19 +117,22 @@ const configurarJogo = () => {
   }
 }
 
-const iniciarJogo = () => {
-  const informacoesPrimeiroJogador = document.getElementById("primeiro-jogador");
-  const informacoesSegundoJogador = document.getElementById("segundo-jogador");
-
+/**
+ * Função para iniciar o jogo com as configurações dos jogadores, assim como as configurações do tabuleiro.
+ * @param {HTMLElement} formularioPrimeiroJogador - Form do HTML que representa os dados do primeiro jogador.
+ * @param {HTMLElement} formularioSegundoJogador - Form do HTML que representa os dados do segundo jogador.
+ * @param {HTMLElement} formularioTabuleiro - Form do HTML que representa os dados do tabuleiro.
+ */
+const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formularioTabuleiro) => {
   const primeiroJogador = {
-    nome: informacoesPrimeiroJogador.querySelector(".nome-jogador").value, simbolo: informacoesPrimeiroJogador.querySelector(".simbolo-jogador").value
+    nome: formularioPrimeiroJogador.querySelector("#nome-jogador").value, simbolo: formularioPrimeiroJogador.querySelector("#simbolo-jogador").value
   };
 
   const segundoJogador = {
-    nome: informacoesSegundoJogador.querySelector(".nome-jogador").value, simbolo: informacoesSegundoJogador.querySelector(".simbolo-jogador").value
+    nome: formularioSegundoJogador.querySelector("#nome-jogador").value, simbolo: formularioSegundoJogador.querySelector("#simbolo-jogador").value
   };
 
-  const dimensoesTabuleiro = document.getElementById("dimensoes-tabuleiro").value;
+  const dimensoesTabuleiro = formularioTabuleiro.querySelector("#dimensoes-tabuleiro").value;
 
   console.log("Jogador 1: ", primeiroJogador);
   console.log("Jogador 2: ", segundoJogador);
