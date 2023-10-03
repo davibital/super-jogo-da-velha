@@ -2,7 +2,9 @@ import { criarTabuleiro, removerAcaoBotoes, gerarSequenciaTurnos } from './utils
 import { verificarVencedor } from './verificacoes.js'
 
 // Cria um tabuleiro 3x3 para o jogo grande
-const tabuleiroGrande = Array.from({ length: 3 }, () => Array.from({ length: 3 }, () => criarTabuleiro(3)(3)));
+const tabuleiroGrandeVazio = criarTabuleiro(3)(3);
+
+const tabuleiroGrande = tabuleiroGrandeVazio.map(linha => linha.map(() => criarTabuleiro(3)(3)));
 
 // Registro com o nome dos jogadores e respectivo símbolo
 const jogadores = [{ nome: 'J1', simbolo: 'X' }, { nome: 'J2', simbolo: 'O' }];
