@@ -123,4 +123,15 @@ const gerarSequenciaTurnos = (listaJogadores) => {
   return sequenciaSimbolos;
 }
 
-export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, gerarSequenciaTurnos }
+/**
+ * Função para obter as dimensões do tabuleiro diretamente da página HTML e transformar em uma lista contendo os valores da quantidade de linhas e de colunas.
+ * @param {HTMLElement} divTabuleiro - Div do HTML que representa o grid do tabuleiro.
+ * @returns {Array} Uma lista contendo a quantidade de linhas e a quantidade de colunas, respectivamente.
+ */
+const obterDimensoesTabuleiro = (divTabuleiro) => {
+  const ultimoElementoTabuleiro = divTabuleiro.lastElementChild;
+  const dimensoes = [...ultimoElementoTabuleiro.id.split('')];
+  return dimensoes.map(indice => parseInt(indice) + 1);
+}
+
+export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, gerarSequenciaTurnos, obterDimensoesTabuleiro }
