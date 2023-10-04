@@ -141,6 +141,12 @@ const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formul
   const painelJogo = document.getElementById("painel-jogo");
   painelJogo.innerHTML = conteudoJogo;
 
+  // Adicionar código js correspondente à página do tabuleiro
+  const novoScript = document.createElement("script");
+  novoScript.setAttribute("src", "../scripts/main.js");
+  novoScript.setAttribute("type", "module");
+  document.body.appendChild(novoScript);
+
   /**
    * Função para criar o HTML do tabuleiro grande
    * @param {Number} linhas - Quantidade de linhas do tabuleiro
