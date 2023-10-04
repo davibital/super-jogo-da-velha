@@ -1,8 +1,11 @@
-import { criarTabuleiro, removerAcaoBotoes, gerarSequenciaTurnos } from './utils.js'
+import { criarTabuleiro, removerAcaoBotoes, gerarSequenciaTurnos, obterDimensoesTabuleiro } from './utils.js'
 import { verificarVencedor } from './verificacoes.js'
 
+// Obtendo as dimensões do tabuleiro, passando como parâmetro o elemento HTML que é uma div que possui a classe "grid-jogo"
+const dimensoes = obterDimensoesTabuleiro(document.querySelector("div>.grid-jogo"));
+
 // Cria um tabuleiro 3x3 para o jogo grande
-const tabuleiroGrandeVazio = criarTabuleiro(3)(3);
+const tabuleiroGrandeVazio = criarTabuleiro(dimensoes[0])(dimensoes[1]);
 
 const tabuleiroGrande = tabuleiroGrandeVazio.map(linha => linha.map(() => criarTabuleiro(3)(3)));
 
