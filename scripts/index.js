@@ -1,4 +1,4 @@
-import { criarTabuleiro } from '../scripts/utils.js';
+import { criarTabuleiro } from './utils.js';
 
 // Esse arquivo possui todas as funções de manipulação da página HTML, trabalhando com DOM.
 
@@ -178,6 +178,7 @@ const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formul
           ${acc}
           <div id="${indiceLinha}${indiceColuna}" class="grid-jogo-pequeno">
             ${criarTabuleiroPequeno(linhas, colunas)}
+            <div class="vencedor"></div>
           </div>
           `
           , ''),

@@ -1,129 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Jogo da Velha</title>
-    <link rel="stylesheet" href="./css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Jogo da Velha</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="placarO">Jogador 1 (O): 0</div>
-    <div id="placarX">Jogador 2 (X): 0</div>
-    <br>
-
-    <div id="conteudo-jogo">
-        <div class="grid-jogo">
-            
-            <div id="00" class="grid-jogo-pequeno">
-                <button class="00"></button>
-                <button class="01"></button>
-                <button class="02"></button>
-                <button class="10"></button>
-                <button class="11"></button>
-                <button class="12"></button>
-                <button class="20"></button>
-                <button class="21"></button>
-                <button class="22"></button>
-                <div class="vencedor"></div>
-            </div>
-            <div id="01" class="grid-jogo-pequeno">
-                <button class="00"></button>
-                <button class="01"></button>
-                <button class="02"></button>
-                <button class="10"></button>
-                <button class="11"></button>
-                <button class="12"></button>
-                <button class="20"></button>
-                <button class="21"></button>
-                <button class="22"></button>
-                <div class="vencedor"></div>
-            </div>
-            <div id="02" class="grid-jogo-pequeno">
-                <button class="00"></button>
-                <button class="01"></button>
-                <button class="02"></button>
-                <button class="10"></button>
-                <button class="11"></button>
-                <button class="12"></button>
-                <button class="20"></button>
-                <button class="21"></button>
-                <button class="22"></button>
-                <div class="vencedor"></div>
-            </div>
-            <div id="10" class="grid-jogo-pequeno">
-                <button class="00"></button>
-                <button class="01"></button>
-                <button class="02"></button>
-                <button class="10"></button>
-                <button class="11"></button>
-                <button class="12"></button>
-                <button class="20"></button>
-                <button class="21"></button>
-                <button class="22"></button>
-                <div class="vencedor"></div>
-            </div>
-            <div id="11" class="grid-jogo-pequeno">
-                <button class="00"></button>
-                <button class="01"></button>
-                <button class="02"></button>
-                <button class="10"></button>
-                <button class="11"></button>
-                <button class="12"></button>
-                <button class="20"></button>
-                <button class="21"></button>
-                <button class="22"></button>
-                <div class="vencedor"></div>
-            </div>
-            <div id="12" class="grid-jogo-pequeno">
-                <button class="00"></button>
-                <button class="01"></button>
-                <button class="02"></button>
-                <button class="10"></button>
-                <button class="11"></button>
-                <button class="12"></button>
-                <button class="20"></button>
-                <button class="21"></button>
-                <button class="22"></button>
-                <div class="vencedor"></div>
-            </div>
-            <div id="20" class="grid-jogo-pequeno">
-                <button class="00"></button>
-                <button class="01"></button>
-                <button class="02"></button>
-                <button class="10"></button>
-                <button class="11"></button>
-                <button class="12"></button>
-                <button class="20"></button>
-                <button class="21"></button>
-                <button class="22"></button>
-                <div class="vencedor"></div>
-            </div>
-            <div id="21" class="grid-jogo-pequeno">
-                <button class="00"></button>
-                <button class="01"></button>
-                <button class="02"></button>
-                <button class="10"></button>
-                <button class="11"></button>
-                <button class="12"></button>
-                <button class="20"></button>
-                <button class="21"></button>
-                <button class="22"></button>
-                <div class="vencedor"></div>
-            </div>
-            <div id="22" class="grid-jogo-pequeno">
-                <button class="00"></button>
-                <button class="01"></button>
-                <button class="02"></button>
-                <button class="10"></button>
-                <button class="11"></button>
-                <button class="12"></button>
-                <button class="20"></button>
-                <button class="21"></button>
-                <button class="22"></button>
-                <div class="vencedor"></div>
-            </div>
-        </div>
-    </div>
-    <script type="module" src="./scripts/main.js"></script>
+  <header>
+    <h1>Super Jogo da Velha</h1>
+  </header>
+  <main id="painel-jogo">
+    <button id="botao-jogar">Jogar</button>
+    <button id="botao-regras">Como jogar</button>
+  </main>
+  <script type="module" src="../scripts/index.js"></script>
 </body>
 </html>
