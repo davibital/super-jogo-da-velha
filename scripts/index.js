@@ -92,7 +92,7 @@ const configurarJogo = () => {
       `
       <h1>Jogador ${numeroJogador}</h1>
       <label for="nome-jogador">Nome:</label><br>
-      <input type="text" id="nome-jogador"><br>
+      <input type="text" id="nome-jogador" minlength="3" maxlength="20" ><br> 
       <label for="simbolo-jogador">Símbolo</label><br>
       <input type="text" id="simbolo-jogador" minlength="1" maxlength="1"><br>
       `
@@ -112,7 +112,7 @@ const configurarJogo = () => {
       `
       <h1>Tabuleiro</h1>
       <label for="dimensoes-tabuleiro">Dimensões:</label><br>
-      <input type="number" id="dimensoes-tabuleiro" min="3"><br>
+      <input type="number" id="dimensoes-tabuleiro" min="3" max="6"><br>
       `
     
     return formulario;
@@ -127,12 +127,22 @@ const configurarJogo = () => {
  */
 const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formularioTabuleiro) => {
   const primeiroJogador = {
-    nome: formularioPrimeiroJogador.querySelector("#nome-jogador").value, simbolo: formularioPrimeiroJogador.querySelector("#simbolo-jogador").value
+    nome: formularioPrimeiroJogador.querySelector("#nome-jogador").value,
+     simbolo: formularioPrimeiroJogador.querySelector("#simbolo-jogador").value
   };
 
   const segundoJogador = {
-    nome: formularioSegundoJogador.querySelector("#nome-jogador").value, simbolo: formularioSegundoJogador.querySelector("#simbolo-jogador").value
+    nome: formularioSegundoJogador.querySelector("#nome-jogador").value,
+     simbolo: formularioSegundoJogador.querySelector("#simbolo-jogador").value
   };
+ 
+  if (primeiroJogador.simbolo === segundoJogador.simbolo) {
+     alert ('O símbolo do primeiro jogador não pode ser igual ao do segundo jogador!')
+     formularioPrimeiroJogador.querySelector("#simbolo-jogador").value = '';
+     formularioSegundoJogador.querySelector("#simbolo-jogador").value = '';
+     location.reload();
+     
+  }
 
   const dimensoesTabuleiro = formularioTabuleiro.querySelector("#dimensoes-tabuleiro").value;
 
