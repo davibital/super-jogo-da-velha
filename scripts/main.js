@@ -64,6 +64,17 @@ const verificarEstadoJogo = (turnoAtual = sequenciaTurnos[0]) => {
   }
 }
 
+// Esta função serve para que ao fazer o click no botão, os simbolos "X" e "O" se alternem no botão.
+const alternarSimbolo = (elementoBotao) => {
+  if (elementoBotao.innerText === "") {
+    elementoBotao.innerText = "X";
+  } else if (elementoBotao.innerText === "X") {
+    elementoBotao.innerText = "O";
+  } else {
+    elementoBotao.innerText = "X";
+  }
+};
+
 // Esta função é responsável pelo evento de clique de um botão. 
 const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
   // Obtém o botão clicado
@@ -87,6 +98,11 @@ const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
   tabuleiroPequeno[linhaPequeno][colunaPequeno] = turnoAtual;
   botao.innerHTML = turnoAtual;
   
+ // Esta função faz com que seja garantido que a lógica de alternarSimbolo(logo abaixo) seja executado todo vez que um botão é clicado.É um escopo local, porque está defenida dentro de uma outra que também chama-se clicarBotao, mas não afeta a original, porque refere-se a lógica dela.
+ const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
+  alternarSimbolo(botao);
+
+ }
   // Remove o evento de clique para esse botão
   botao.removeEventListener("click", clicarBotao);
   
