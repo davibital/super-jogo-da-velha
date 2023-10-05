@@ -1,5 +1,7 @@
-import { criarTabuleiro, removerAcaoBotoes, gerarSequenciaTurnos, obterDimensoesTabuleiro } from './utils.js'
+import { criarTabuleiro, removerAcaoBotoes, obterDimensoesTabuleiro } from './utils.js'
 import { verificarVencedor } from './verificacoes.js'
+import { gerarSequenciaTurnos } from './random.js';
+import { alternarSimboloBotao } from './suplementos.js';
 
 // Obtendo as dimensões do tabuleiro, passando como parâmetro o elemento HTML que é uma div que possui a classe "grid-jogo"
 const dimensoes = obterDimensoesTabuleiro(document.querySelector("div>.grid-jogo"));
@@ -98,14 +100,15 @@ const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
   tabuleiroPequeno[linhaPequeno][colunaPequeno] = turnoAtual;
   botao.innerHTML = turnoAtual;
   
- // Esta função faz com que seja garantido que a lógica de alternarSimbolo(logo abaixo) seja executado todo vez que um botão é clicado.É um escopo local, porque está defenida dentro de uma outra que também chama-se clicarBotao, mas não afeta a original, porque refere-se a lógica dela.
- const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
+  // Esta função faz com que seja garantido que a lógica de alternarSimbolo(logo abaixo) seja executado todo vez que um botão é clicado.É um escopo local, porque está defenida dentro de uma outra que também chama-se clicarBotao, mas não afeta a original, porque refere-se a lógica dela.
+  
+ /* const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
   alternarSimbolo(botao);
 
- }
+ } */
+  
   // Remove o evento de clique para esse botão
   botao.removeEventListener("click", clicarBotao);
-  
   
   // Verifica se há um vencedor no tabuleiro pequeno
   if (verificarVencedor(tabuleiroPequeno)) {
