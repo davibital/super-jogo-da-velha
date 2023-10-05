@@ -108,22 +108,6 @@ const removerAcaoBotoes = (listaBotoes, funcao) => {
 }
 
 /**
- * Esta função serve para sortear o primeiro jogador a jogar.
- * @param {Array} listaJogadores - Lista contendo os registros dos jogadores, com nome e o seu respectivo símbolo
- * @returns {Array} - Uma sequência com os símbolos dos jogadores participantes do jogo
- */
-const gerarSequenciaTurnos = (listaJogadores) => {
-  const numeroJogadores = listaJogadores.length;
-  const jogadorComeca = Math.floor(Math.random() * numeroJogadores);
-  const primeiroJogador = listaJogadores[jogadorComeca];
-  const restoJogadores = listaJogadores.filter((jogador, indice) => indice != jogadorComeca);
-
-  const sequenciaSimbolos = [primeiroJogador.simbolo, ...restoJogadores.map(jogador => jogador.simbolo)]
-
-  return sequenciaSimbolos;
-}
-
-/**
  * Função para obter as dimensões do tabuleiro diretamente da página HTML e transformar em uma lista contendo os valores da quantidade de linhas e de colunas.
  * @param {HTMLElement} divTabuleiro - Div do HTML que representa o grid do tabuleiro.
  * @returns {Array} Uma lista contendo a quantidade de linhas e a quantidade de colunas, respectivamente.
@@ -134,4 +118,4 @@ const obterDimensoesTabuleiro = (divTabuleiro) => {
   return dimensoes.map(indice => parseInt(indice) + 1);
 }
 
-export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, gerarSequenciaTurnos, obterDimensoesTabuleiro }
+export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, obterDimensoesTabuleiro }

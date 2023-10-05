@@ -34,4 +34,17 @@ const embaralharMatriz = (matriz) => {
     return matrizEmbaralhada
 }
 
-export { embaralharLista, embaralharMatriz }
+/**
+ * Esta função serve para sortear o primeiro jogador a jogar.
+ * @param {Array} listaJogadores - Lista contendo os registros dos jogadores, com nome e o seu respectivo símbolo
+ * @returns {Array} - Uma sequência com os símbolos dos jogadores participantes do jogo
+ */
+const gerarSequenciaTurnos = (listaJogadores) => {
+    const listaEmbaralhada = embaralharLista(listaJogadores);
+  
+    const sequenciaSimbolos = listaEmbaralhada.map(jogador => jogador.simbolo);
+  
+    return sequenciaSimbolos;
+  }
+
+export { embaralharLista, embaralharMatriz, gerarSequenciaTurnos }
