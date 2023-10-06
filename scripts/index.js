@@ -151,7 +151,7 @@ const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formul
   `
   <div id="lado-esquerdo">
     <div id="container-botao-voltar">
-      <button>VOLTAR</button>
+      <button id="botao-voltar">VOLTAR</button>
     </div>
 
     <h1>Jogador 1</h1>
@@ -179,7 +179,7 @@ const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formul
     </div>
   </div>
   `
-  
+
   const painelJogo = document.getElementById("painel-jogo");
   painelJogo.innerHTML = conteudoJogo;
 
