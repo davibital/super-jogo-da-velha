@@ -144,12 +144,42 @@ const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formul
     location.reload();
      
   }
-
   const dimensoesTabuleiro = formularioTabuleiro.querySelector("#dimensoes-tabuleiro").value;
 
   // Criação da div principal que contém o conteúdo do jogo
-  const conteudoJogo = `<div id="conteudo-jogo">${criarTabuleiroGrande(dimensoesTabuleiro, dimensoesTabuleiro)}</div>`;
+  const conteudoJogo = 
+  `
+  <div id="lado-esquerdo">
+    <div id="container-botao-voltar">
+      <button>VOLTAR</button>
+    </div>
 
+    <h1>Jogador 1</h1>
+
+    <div id="container-primeiro-jogador">
+      <div id="nome-primeiro-jogador">${primeiroJogador.nome}</div>
+      <div id="simbolo-primeiro-jogador">${primeiroJogador.simbolo}</div>
+      <button>SORTEAR</button>
+    </div>
+  </div>
+
+  <div id="conteudo-jogo">${criarTabuleiroGrande(dimensoesTabuleiro, dimensoesTabuleiro)}</div>
+  
+  <div id="lado-direito">
+    <div id="container-botao-reiniciar">
+      <button>REINICIAR</button>
+    </div>
+
+    <h1>Jogador 2</h1>
+
+    <div id="container-segundo-jogador">
+      <div id="nome-segundo-jogador">${segundoJogador.nome}</div>
+      <div id="simbolo-segundo-jogador">${segundoJogador.simbolo}</div>
+      <button>SORTEAR</button>
+    </div>
+  </div>
+  `
+  
   const painelJogo = document.getElementById("painel-jogo");
   painelJogo.innerHTML = conteudoJogo;
 
