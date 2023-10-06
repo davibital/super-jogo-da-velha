@@ -126,26 +126,28 @@ const configurarJogo = () => {
  * @param {HTMLElement} formularioTabuleiro - Form do HTML que representa os dados do tabuleiro.
  */
 const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formularioTabuleiro) => {
+  // Obtenção dos dados dos jogadores conforme informado no formulário
   const primeiroJogador = {
     nome: formularioPrimeiroJogador.querySelector("#nome-jogador").value,
-     simbolo: formularioPrimeiroJogador.querySelector("#simbolo-jogador").value
+    simbolo: formularioPrimeiroJogador.querySelector("#simbolo-jogador").value
   };
 
   const segundoJogador = {
     nome: formularioSegundoJogador.querySelector("#nome-jogador").value,
-     simbolo: formularioSegundoJogador.querySelector("#simbolo-jogador").value
+    simbolo: formularioSegundoJogador.querySelector("#simbolo-jogador").value
   };
  
   if (primeiroJogador.simbolo === segundoJogador.simbolo) {
-     alert ('O símbolo do primeiro jogador não pode ser igual ao do segundo jogador!')
-     formularioPrimeiroJogador.querySelector("#simbolo-jogador").value = '';
-     formularioSegundoJogador.querySelector("#simbolo-jogador").value = '';
-     location.reload();
+    alert ('O símbolo do primeiro jogador não pode ser igual ao do segundo jogador!')
+    formularioPrimeiroJogador.querySelector("#simbolo-jogador").value = '';
+    formularioSegundoJogador.querySelector("#simbolo-jogador").value = '';
+    location.reload();
      
   }
 
   const dimensoesTabuleiro = formularioTabuleiro.querySelector("#dimensoes-tabuleiro").value;
 
+  // Criação da div principal que contém o conteúdo do jogo
   const conteudoJogo = `<div id="conteudo-jogo">${criarTabuleiroGrande(dimensoesTabuleiro, dimensoesTabuleiro)}</div>`;
 
   const painelJogo = document.getElementById("painel-jogo");
@@ -173,14 +175,16 @@ const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formul
     return divTabuleiroGrande;
 
     /**
-     * Função para criar os elementos do tabuleiro grande
+     * Função para criar os elementos do tabuleiro grande.
      * @param {Number} linhas - Quantidade de linhas do tabuleiro
      * @param {Number} colunas - Quantidade de colunas do tabuleiro
      * @returns {String} String contendo o código HTML dos elementos do tabuleiro grande
      */
     function criarTabuleiroGrandeAux(linhas, colunas) {
+      // Criação de uma matrix de dimensões linhas x colunas
       const tabuleiro = criarTabuleiro(linhas)(colunas);
 
+      // Aqui é feita a criação do tabuleiro grande, aplicando um reduce na matriz anterior e gerando uma string com o código HTML correspondente à div do tabuleiro grande
       const tabuleiroGrande =
         tabuleiro.reduce((acc, linha, indiceLinha) => acc +
           linha.reduce((acc, coluna, indiceColuna) =>
@@ -189,6 +193,7 @@ const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formul
           <div id="${indiceLinha}${indiceColuna}" class="grid-jogo-pequeno">
             ${criarTabuleiroPequeno(linhas, colunas)}
             <div class="vencedor"></div>
+            <div class="coringa"></div>
           </div>
           `
           , ''),
@@ -204,8 +209,10 @@ const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formul
      * @returns {String} String contendo o código HTML dos elementos do tabuleiro grande
      */
     function criarTabuleiroPequeno(linhas, colunas) {
+      // Criação de uma matrix de dimensões linhas x colunas
       const tabuleiro = criarTabuleiro(linhas)(colunas);
 
+      // Aqui é feita a criação do tabuleiro grande, aplicando um reduce na matriz anterior e gerando uma string com o código HTML correspondente ao tabuleiro pequeno.
       const tabuleirosPequenos =
         tabuleiro.reduce((acc, linha, indiceLinha) => acc +
           linha.reduce((acc, coluna, indiceColuna) =>
