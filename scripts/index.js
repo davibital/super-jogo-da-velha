@@ -188,15 +188,22 @@ const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formul
       const tabuleiroGrande =
         tabuleiro.reduce((acc, linha, indiceLinha) => acc +
           linha.reduce((acc, coluna, indiceColuna) =>
+            // `
+            //   ${acc}
+            //   <div id="${indiceLinha}${indiceColuna}" class="grid-jogo-pequeno">
+            //     ${criarTabuleiroPequeno(linhas, colunas)}
+            //     <div class="vencedor coringa"></div>
+            //   </div>
+            // `,
             `
-          ${acc}
-          <div id="${indiceLinha}${indiceColuna}" class="grid-jogo-pequeno">
-            ${criarTabuleiroPequeno(linhas, colunas)}
-            <div class="vencedor"></div>
-            <div class="coringa"></div>
-          </div>
-          `
-          , ''),
+              ${acc}
+              <div id="${indiceLinha}${indiceColuna}" class="grid-jogo-pequeno">
+                ${criarTabuleiroPequeno(linhas, colunas)}
+                <div class="vencedor"></div>
+                <div class="coringa"></div>
+              </div>
+            `,
+          ''),
         '');
 
       return tabuleiroGrande;
@@ -217,10 +224,10 @@ const iniciarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, formul
         tabuleiro.reduce((acc, linha, indiceLinha) => acc +
           linha.reduce((acc, coluna, indiceColuna) =>
             `
-          ${acc}
-          <button class="${indiceLinha}${indiceColuna}"></button>
-          `
-          , ''),
+              ${acc}
+              <button class="${indiceLinha}${indiceColuna}"></button>
+            `,
+          ''),
         '');
 
       return tabuleirosPequenos;
