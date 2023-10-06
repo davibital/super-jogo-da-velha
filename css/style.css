@@ -47,13 +47,20 @@ header h1 {
   background-color: white;
 
   display: flex;
-  align-items: center;
   justify-content: center;
 
   gap: 10rem;
 }
 
-#painel-jogo > button {
+#container-botoes-interface {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+}
+
+#botao-jogar, #botao-regras {
   border: 1px solid black;
 
   font-size: 3.2rem;
@@ -68,7 +75,7 @@ header h1 {
   cursor: pointer;
 }
 
-#painel-jogo > button:hover {
+#botao-jogar:hover, #botao-regras:hover {
   animation: animacao-botao .5s alternate infinite;
 }
 
@@ -111,6 +118,11 @@ header h1 {
   cursor: pointer;
 
   margin-left: 95%;
+}
+
+#lado-esquerdo, #lado-direito {
+  height: 100%;
+  border: 1px solid red;
 }
 
 #conteudo-jogo {
