@@ -1,12 +1,23 @@
 import { criarTabuleiro } from './utils.js'
 
+/**
+ * Função para retornar à página inicial.
+ */
 const voltarAoInicio = () => {
   localStorage.clear();
   window.location.href = './index.html';
 }
 
-const reiniciar = () => window.location.reload();
+/**
+ * Função para reiniciar a página. 
+ */
+const reiniciar = () => { window.location.reload() };
 
+/**
+ * Função para preencher a página HTML com as informações dos jogadores.
+ * @param {Registro} informacoesPrimeiroJogador - Registro contendo o nome e o símbolo do primeiro jogador.
+ * @param {Registro} informacoesSegundoJogador - Registro contendo o nome e o símbolo do segundo jogador.
+ */
 const preencherInformacoesJogadores = (informacoesPrimeiroJogador, informacoesSegundoJogador) => {
   const containerPrimeiroJogador = document.getElementById("container-primeiro-jogador");
   const containerSegundoJogaodr = document.getElementById("container-segundo-jogador");
@@ -16,9 +27,12 @@ const preencherInformacoesJogadores = (informacoesPrimeiroJogador, informacoesSe
 
   containerSegundoJogaodr.querySelector(".nome").innerHTML = informacoesSegundoJogador.nome;
   containerSegundoJogaodr.querySelector(".simbolo").innerHTML = informacoesSegundoJogador.simbolo;
-
 }
 
+/**
+ * Função para desenhar o tabuleiro da página, baseado nas dimensões fornecidas pelo usuário.
+ * @param {Number} dimensoesTabuleiro - Número inteiro que corresponde a quantidade de linhas e de colunas do tabuleiro.
+ */
 const desenharTabuleiro = (dimensoesTabuleiro) => {
   const conteudoJogo = document.getElementById("conteudo-jogo");
 
