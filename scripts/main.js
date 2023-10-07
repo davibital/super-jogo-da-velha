@@ -1,7 +1,7 @@
 import { criarTabuleiro, removerAcaoBotoes, obterDimensoesTabuleiro } from './utils.js'
 import { verificarVencedor } from './verificacoes.js'
 import { gerarSequenciaTurnos } from './random.js';
-import { alternarSimboloBotao } from './suplementos.js';
+import { sortearPoder, alternarSimbolo, passarVez } from './poderes.js';
 
 // Obtendo as dimensões do tabuleiro, passando como parâmetro o elemento HTML que é uma div que possui a classe "grid-jogo"
 const dimensoes = obterDimensoesTabuleiro(document.querySelector("div>.grid-jogo"));
@@ -21,15 +21,14 @@ const jogadores = listaJogadores.map(containerJogador => {
   const nome = containerJogador.querySelector(".nome").innerHTML;
   const simbolo = containerJogador.querySelector(".simbolo").innerHTML;
 
-  return { nome: nome, simbolo: simbolo };
- });
+  return { nome: nome, simbolo: simbolo, poder: 0 };
+});
+ 
+const poderes = [];
 
 // Lista com a determinada sequência dos símbolos de quem joga primeiro e por último. (Gerada aleatoriamente)
 const sequenciaTurnos = gerarSequenciaTurnos(jogadores);
 console.log("Esta é a sequência do jogo: ", sequenciaTurnos);
-
-// Esta função serve para passar a vez (turno) após uma jogada
-const passarVez = () => sequenciaTurnos.reverse()
 
 /*
 // Registro  para armazenar o placar
@@ -76,7 +75,7 @@ const verificarEstadoJogo = (turnoAtual = sequenciaTurnos[0]) => {
   }
 }
 
-// Esta função serve para que ao fazer o click no botão, os simbolos "X" e "O" se alternem no botão.
+/* // Esta função serve para que ao fazer o click no botão, os simbolos "X" e "O" se alternem no botão.
 const alternarSimbolo = (elementoBotao) => {
   if (elementoBotao.innerText === "") {
     elementoBotao.innerText = "X";
@@ -85,10 +84,11 @@ const alternarSimbolo = (elementoBotao) => {
   } else {
     elementoBotao.innerText = "X";
   }
-};
+}; */
 
 // Esta função é responsável pelo evento de clique de um botão. 
-const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
+const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
+  const turnoAtual = sequenciaTurnos[0];
   // Obtém o botão clicado
   const botao = eventoClique.srcElement;
 
@@ -129,8 +129,17 @@ const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
   verificarEstadoJogo()
   
   // Passa a vez após a jogada
-  passarVez();
+  passarVez(sequenciaTurnos);
 }
 
+const clicarBotao = clicarBotaoGeral(sequenciaTurnos);
+
+const sortearPoderJogadores = sortearPoder(jogadores);
+
 // Adicionando o evento de clique a todos os botões
-const botoes = Array.from(document.querySelectorAll("button")).map(botao => botao.addEventListener("click", clicarBotao))
+const botoes = Array.from(document.querySelectorAll("#conteudo-jogo button"));
+botoes.map(botao => botao.addEventListener("click", clicarBotao));
+
+// Adicionando o evento de sorteio aos botões de sorteio
+const botoesSorteio = Array.from(document.querySelectorAll(".sorteio"));
+botoesSorteio.map(botao => botao.addEventListener("click", sortearPoderJogadores));
