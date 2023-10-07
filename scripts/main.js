@@ -1,46 +1,22 @@
 import { criarTabuleiro, removerAcaoBotoes, obterDimensoesTabuleiro } from './utils.js'
 import { verificarVencedor } from './verificacoes.js'
 import { gerarSequenciaTurnos } from './random.js';
-import { alternarSimboloBotao } from './suplementos.js';
+import * as actions from './actions.js';
 
 // Obtendo as dimensões do tabuleiro, passando como parâmetro o elemento HTML que é uma div que possui a classe "grid-jogo"
 const dimensoes = obterDimensoesTabuleiro(document.querySelector("div>.grid-jogo"));
-const linhas = dimensoes[0];
-const colunas = dimensoes[1];
 
 // Cria um tabuleiro 3x3 para o jogo grande
-const tabuleiroGrandeVazio = criarTabuleiro(linhas)(colunas);
+const tabuleiroGrandeVazio = criarTabuleiro(dimensoes[0])(dimensoes[1]);
 
-const tabuleiroGrande = tabuleiroGrandeVazio.map(linha => linha.map(() => criarTabuleiro(linhas)(colunas)));
-
-// Obtendo os containers do HTML que contém as informações dos jogadores
-const listaJogadores = Array.from(document.querySelectorAll(".jogador"));
+const tabuleiroGrande = tabuleiroGrandeVazio.map(linha => linha.map(() => criarTabuleiro(3)(3)));
 
 // Registro com o nome dos jogadores e respectivo símbolo
-const jogadores = listaJogadores.map(containerJogador => { 
-  const nome = containerJogador.querySelector(".nome").innerHTML;
-  const simbolo = containerJogador.querySelector(".simbolo").innerHTML;
+const jogadores = [{ nome: 'J1', simbolo: 'X' }, { nome: 'J2', simbolo: 'O' }];
 
-  return { nome: nome, simbolo: simbolo };
- });
-
-// Lista com a determinada sequência dos símbolos de quem joga primeiro e por último. (Gerada aleatoriamente)
+// Lista com a determinada sequência dos símbolos de quem joga primeiro e por último. (Gerada aleatoriamente) 
 const sequenciaTurnos = gerarSequenciaTurnos(jogadores);
 console.log("Esta é a sequência do jogo: ", sequenciaTurnos);
-
-// Esta função serve para passar a vez (turno) após uma jogada
-const passarVez = () => sequenciaTurnos.reverse()
-
-/*
-// Registro  para armazenar o placar
-const placar = { 'O': 0, 'X': 0 };
-
-// Função para atualizar o placar na interface
-const atualizarPlacar = () => {
-  document.getElementById('placarO').innerText = `Jogador 1 (O): ${placar['O']}`;
-  document.getElementById('placarX').innerText = `Jogador 2 (X): ${placar['X']}`;
-}
-*/
 
 // Esta função permite que o símbolo seja ilustrado sobreposto ao Jogo da Velha pequeno
 const vencedorNoTabuleiroMenor = (elementoDoTabuleiroMenor, SimboloVencedor) => {
@@ -49,7 +25,7 @@ const vencedorNoTabuleiroMenor = (elementoDoTabuleiroMenor, SimboloVencedor) => 
   // Esta linha faz com o simbolo vencedor seja exibido
   simbolo.innerText = SimboloVencedor;
   // Esta linha tornar o simbolo visivel.  
-  simbolo.style.display = 'flex';
+  simbolo.style.display = 'flex'; 
 };
 
 // Função para lidar com uma vitória em um Jogo da Velha pequeno
@@ -75,17 +51,6 @@ const verificarEstadoJogo = (turnoAtual = sequenciaTurnos[0]) => {
     // Aqui podemos adicionar código para encerrar o jogo, se assim desejar
   }
 }
-
-// Esta função serve para que ao fazer o click no botão, os simbolos "X" e "O" se alternem no botão.
-const alternarSimbolo = (elementoBotao) => {
-  if (elementoBotao.innerText === "") {
-    elementoBotao.innerText = "X";
-  } else if (elementoBotao.innerText === "X") {
-    elementoBotao.innerText = "O";
-  } else {
-    elementoBotao.innerText = "X";
-  }
-};
 
 // Esta função é responsável pelo evento de clique de um botão. 
 const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
@@ -129,8 +94,10 @@ const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
   verificarEstadoJogo()
   
   // Passa a vez após a jogada
-  passarVez();
+  actions.passarVez();
 }
 
 // Adicionando o evento de clique a todos os botões
 const botoes = Array.from(document.querySelectorAll("button")).map(botao => botao.addEventListener("click", clicarBotao))
+
+export { tabuleiroGrande, jogadores, sequenciaTurnos }

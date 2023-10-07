@@ -1,4 +1,4 @@
-import * as utils from './utils.js';
+import { desaninhar, aninhar } from './utils.js';
 
 /**
  * Esta função serve para embaralhar elementos de uma lista qualquer de acordo com o algoritmo de Fisher-Yates.
@@ -28,9 +28,9 @@ const embaralharLista = (lista) => {
  * @returns {Array} - Matriz embaralhada.
  */
 const embaralharMatriz = (matriz) => {
-    const listaMatriz = utils.desaninhar(matriz) // "Destruição" da matriz (lista de listas) em uma única lista.
+    const listaMatriz = desaninhar(matriz) // "Destruição" da matriz (lista de listas) em uma única lista.
     const listaEmbaralhada = embaralharLista(listaMatriz) // Embaralhamento dessa lista.
-    const matrizEmbaralhada = utils.aninhar(listaEmbaralhada, matriz.length) // "Reconstrunção" da matriz a partir dessa lista embaralhada.
+    const matrizEmbaralhada = aninhar(listaEmbaralhada, matriz.length) // "Reconstrunção" da matriz a partir dessa lista embaralhada.
     return matrizEmbaralhada
 }
 
