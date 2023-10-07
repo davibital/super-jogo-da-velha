@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Jogo da Velha</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/jogo.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Super Jogo da Velha</h1>
+  </header>
+  <main id="painel-jogo">
+    <aside class="container">
+      <button id="botao-voltar">VOLTAR</button>
+  
+      <div id="container-primeiro-jogador">
+        <h1 class="nome"></h1>
+        <h1 class="simbolo"></h1>
+        <button>SORTEAR</button>
+      </div>
+    </aside>
+    
+    <div id="conteudo-jogo">
+
+    </div>
+    
+    <aside class="container">
+      <div id="container-botao-reiniciar">
+        <button id="botao-reiniciar">REINICIAR</button>
+      </div>
+  
+      <div id="container-segundo-jogador">
+        <h1 class="nome"></h1>
+        <h1 class="simbolo"></h1>
+        <button>SORTEAR</button>
+      </div>
+    </aside>
+  </main>
+
+  <script type="module" src="./scripts/jogar.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+#container-regras {
+  background-color: rgb(219, 210, 210);
+
+  overflow-y: auto;
+  scroll-behavior: smooth;
+
+  padding: 2rem;
+  width: 50%;
+  height: 80%;
+
+  border-radius: 1rem;
+  border: 2px solid black;
+
+  position: absolute;
+}
+
+#container-regras > button {
+  color: rgb(177, 0, 0);
+  background: none;
+  border: none;
+
+  font-size: 1.6rem;
+
+  cursor: pointer;
+
+  margin-left: 95%;
+}

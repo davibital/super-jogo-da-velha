@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Jogo da Velha</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/regras.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Super Jogo da Velha</h1>
+  </header>
+  <main id="painel-jogo">
+    <div id="container-regras">
+      <button id="fechar-regras">X</button>
+      <p>
+        Este jogo é baseado no clássico jogo da velha, porém com algumas adições que trazem um certo dinamismo ao jogo.
+        <br>
+        <br>
+    
+        <strong>Dinâmica do jogo:</strong>
+        <br>
+        <br>
+        
+        O jogo é formado por um tabuleiro grande de dimensões 3 x 3 e cada posição desse tabuleiro é ocupado por um outro tabuleiro 3 x 3. É neste tabuleiro menor que o jogo é jogado de fato.<br>
+        Os jogadores irão jogar os seus símbolos nos tabuleiros pequenos, respeitando o turno de cada jogador, quando um jogador completa uma linha, ou coluna, ou diagonal com o seu símbolo, o tabuleiro é finalizado com a vitória desse jogador.<br>
+        Sempre que um tabuleiro pequeno é finalizado, ele é substituído pelo símbolo vencedor daquele tabuleiro, caso ocorra um empate, é substituído por um símnbolo coringa.
+        <br>
+        <br>
+        
+        <strong>Objetivo:</strong>
+        <br>
+        <br>
+        
+        Os jogadores têm como objetivo completar uma linha, ou coluna, ou diagonal do tabuleiro maior com o seu símbolo para assim se consagrar o grande vencedor!
+      </p>
+    </div>
+  </main>
+
+  <script src="./scripts/regras.js"></script>
+</body>
+</html>

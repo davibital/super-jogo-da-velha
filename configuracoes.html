@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Jogo da Velha</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Super Jogo da Velha</h1>
+  </header>
+  <main id="painel-jogo">
+    <div id="configuracoes-jogo">
+      <form id="primeiro-jogador">
+        <h1>Jogador 1</h1>
+        <label for="nome-jogador">Nome:</label>
+        <br>
+        <input type="text" id="nome-jogador" minlength="3" maxlength="20">
+        <br>
+        <label for="simbolo-jogador">Símbolo:</label>
+        <br>
+        <input type="text" id="simbolo-jogador" minlength="1" maxlength="1">
+      </form>
+      <form id="segundo-jogador">
+        <h1>Jogador 2</h1>
+        <label for="nome-jogador">Nome:</label>
+        <br>
+        <input type="text" id="nome-jogador" minlength="3" maxlength="20">
+        <br>
+        <label for="simbolo-jogador">Símbolo:</label>
+        <br>
+        <input type="text" id="simbolo-jogador" minlength="1" maxlength="1">
+      </form>
+      <form id="tabuleiro">
+        <h1>Tabuleiro</h1>
+        <label for="dimensoes-tabuleiro">Dimensões:</label>
+        <br>
+        <input type="number" id="dimensoes-tabuleiro" min="3" max="6">
+        <br>
+      </form>
+      <button id="botao-iniciar">Iniciar</button>
+    </div>
+  </main>
+
+  <script type="module" src="./scripts/configuracoes.js"></script>
+</body>
+</html>
