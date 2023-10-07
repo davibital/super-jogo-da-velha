@@ -5,16 +5,26 @@ import { alternarSimboloBotao } from './suplementos.js';
 
 // Obtendo as dimensões do tabuleiro, passando como parâmetro o elemento HTML que é uma div que possui a classe "grid-jogo"
 const dimensoes = obterDimensoesTabuleiro(document.querySelector("div>.grid-jogo"));
+const linhas = dimensoes[0];
+const colunas = dimensoes[1];
 
 // Cria um tabuleiro 3x3 para o jogo grande
-const tabuleiroGrandeVazio = criarTabuleiro(dimensoes[0])(dimensoes[1]);
+const tabuleiroGrandeVazio = criarTabuleiro(linhas)(colunas);
 
-const tabuleiroGrande = tabuleiroGrandeVazio.map(linha => linha.map(() => criarTabuleiro(3)(3)));
+const tabuleiroGrande = tabuleiroGrandeVazio.map(linha => linha.map(() => criarTabuleiro(linhas)(colunas)));
+
+// Obtendo os containers do HTML que contém as informações dos jogadores
+const listaJogadores = Array.from(document.querySelectorAll(".jogador"));
 
 // Registro com o nome dos jogadores e respectivo símbolo
-const jogadores = [{ nome: 'J1', simbolo: 'X' }, { nome: 'J2', simbolo: 'O' }];
+const jogadores = listaJogadores.map(containerJogador => { 
+  const nome = containerJogador.querySelector(".nome").innerHTML;
+  const simbolo = containerJogador.querySelector(".simbolo").innerHTML;
 
-// Lista com a determinada sequência dos símbolos de quem joga primeiro e por último. (Gerada aleatoriamente) 
+  return { nome: nome, simbolo: simbolo };
+ });
+
+// Lista com a determinada sequência dos símbolos de quem joga primeiro e por último. (Gerada aleatoriamente)
 const sequenciaTurnos = gerarSequenciaTurnos(jogadores);
 console.log("Esta é a sequência do jogo: ", sequenciaTurnos);
 
@@ -39,7 +49,7 @@ const vencedorNoTabuleiroMenor = (elementoDoTabuleiroMenor, SimboloVencedor) => 
   // Esta linha faz com o simbolo vencedor seja exibido
   simbolo.innerText = SimboloVencedor;
   // Esta linha tornar o simbolo visivel.  
-  simbolo.style.display = 'flex'; 
+  simbolo.style.display = 'flex';
 };
 
 // Função para lidar com uma vitória em um Jogo da Velha pequeno
