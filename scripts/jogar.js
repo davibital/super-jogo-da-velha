@@ -3,7 +3,7 @@ import { criarTabuleiro } from './utils.js'
 /**
  * Função para retornar à página inicial.
  */
-const voltarAoInicio = () => {
+const voltarAoInicio = (evento) => {
   localStorage.clear();
   window.location.href = './index.html';
 }
@@ -11,7 +11,7 @@ const voltarAoInicio = () => {
 /**
  * Função para reiniciar a página. 
  */
-const reiniciar = () => { window.location.reload() };
+const reiniciar = (evento) => { window.location.reload() };
 
 /**
  * Função para preencher a página HTML com as informações dos jogadores.
