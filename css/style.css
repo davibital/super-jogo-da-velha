@@ -13,7 +13,7 @@ html, body {
 }
 
 body {
-  background-color: brown;
+  background-color: rgb(32, 63, 7);
 
   min-width: 850px;
   min-height: 600px;
@@ -26,7 +26,8 @@ body {
 
 h1 {
   font-size: 3.2rem;
-  background-color: blue;
+  background-color: rgb(32, 63, 7);
+
 }
 
 p {
@@ -36,7 +37,7 @@ p {
 header h1 {
   color: white;
   font-weight: bold;
-  text-shadow: 3px 4px black;
+  text-shadow: 3px 4px rgb(12, 1, 1);
 }
 
 #nome-jogador {
@@ -99,7 +100,7 @@ label[for="dimensoes-tabuleiro"] {
   font-weight: bold;
 
   color: white;
-  background-color: brown;
+  background-color: rgb(32, 63, 7);
   padding: 1.5rem 3rem;
 
   border-radius: 3rem;
@@ -107,8 +108,42 @@ label[for="dimensoes-tabuleiro"] {
   cursor: pointer;
 }
 
+#botao-reiniciar, #botao-voltar {
+  border: 1px solid black;
+
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  color: white;
+  background-color: rgb(32, 63, 7);
+  padding: 0.5rem 1rem;
+
+  border-radius: 1rem;
+
+  cursor: pointer;
+}
+
+#botao-sortear {
+  border: 1px solid black;
+
+  font-size: 1.2rem;
+  font-weight: bold;
+
+  color: black;
+  background-color: white;
+  padding: 0.5rem 1rem;
+
+  border-radius: 1rem;
+
+  cursor: pointer;
+}
+
 #botao-jogar:hover, #botao-regras:hover {
   animation: animacao-botao .5s alternate infinite;
+}
+
+#botao-reiniciar:hover, #botao-voltar:hover, #botao-sortear:hover {
+  animation: animacao-botao2 .5s alternate infinite;
 }
 
 @keyframes animacao-botao {
@@ -121,6 +156,20 @@ label[for="dimensoes-tabuleiro"] {
     padding: 1.75rem 3.5rem;
     font-size: 3.6rem;
     color: #000000;
+  }
+}
+
+
+@keyframes animacao-botao2 {
+  from {  
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    color: rgb(10, 10, 10);
+  }
+  to {
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    color: white;
   }
 }
 

@@ -8,7 +8,7 @@
 }
 
 #container-primeiro-jogador, #container-segundo-jogador {
-  background-color: white;
+  background-color:  rgb(32, 63, 7);
   width: 75%;
 
   display: flex;
@@ -20,7 +20,7 @@
 
   align-items: center;
 
-  color: brown;
+  color:white ;
   border: 2px solid black;
 }
 
