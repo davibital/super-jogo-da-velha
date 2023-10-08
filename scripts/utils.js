@@ -133,6 +133,13 @@ const contarCharStr = ([x, ...xs], char) => {
   else return contarAux([x, ...xs], char)
 }
 
+const removerCharStr = (string, char) => {
+  const listaStr = string.split('')
+  const listaStrFiltrada = listaStr.filter((x) => x != char)
+  const strFiltrada = listaStrFiltrada.join('')
+  return strFiltrada
+}
+
 const ativarJogadores = (listaJogadores) => (sequenciaTurnos) => {
   const simboloTurno = sequenciaTurnos[0]
   const containerJogadores = Array.from(document.querySelectorAll(".jogador"));
@@ -152,4 +159,4 @@ const ativarJogadores = (listaJogadores) => (sequenciaTurnos) => {
   })
 }
 
-export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, obterDimensoesTabuleiro, contarCharStr, ativarJogadores }
+export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, obterDimensoesTabuleiro, contarCharStr, removerCharStr, ativarJogadores }
