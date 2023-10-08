@@ -20,21 +20,30 @@ const verificarLinhas = ([...tabuleiro], coringa) => {
    * Esta função serve para verificar se a linha possui algum símbolo único.
    * @param {Array} linha - Lista contendo os símbolos jogados na linha.
    * @param {String} coringa - Símbolo que corresponde ao símbolo coringa do jogo.
+   * @param {String} simboloJogador - Símbolo que corresponde ao símbolo de um dos jogadores, considerando o primeiro que for encontrado na linha.
    * @returns Lista contendo os valores booleanos para cada linha, caso exista.
    */
-  function linhaTemSimboloUnico([simbolo, ...linha], coringa) {
-    if (typeof simbolo != 'string' || simbolo == '')
-      return false
-    if (linha.length == 0)
-      return true
+  function linhaTemSimboloUnico([simbolo, ...linha], coringa, simboloJogador = '') {
+    // Atribuição do símbolo do jogador, essa abordagem serve para impedir que uma linha ['X', coringa, 'O'] seja considerada vencedora. Para isso, é armazenado o símbolo de um dos jogadores, no caso é o primeiro encontrado (X), para caso um coringa esteja entre eles, seja feita uma comparação para ver se o símbolo é igual ao outro que foi jogado.
+    if (simboloJogador == '' || simboloJogador == coringa)
+      simboloJogador = simbolo;
+    
+    if (simbolo != coringa && simbolo != simboloJogador) return false;
+
+    // Caso base é a linha não ter mais nenhum símbolo e o símbolo atual ser igual ao outro símbolo da linha, desconsiderando o coringa.
+    if (linha.length == 0) return true;
+
     if (simbolo == coringa)
-      return linhaTemSimboloUnico(linha, coringa)
+      return linhaTemSimboloUnico(linha, coringa, simboloJogador)
+
+    // Verificação caso o símbolo seja um tabuleiro pequeno, no caso uma matriz de duas dimensões, ou seja um elemento vazio.
+    if (typeof simbolo != 'string' || simbolo == '') return false;
+
     else {
-      const proximoSimbolo = linha[0]
-      if (simbolo != proximoSimbolo && proximoSimbolo != coringa)
-        return false
-      else
-        return linhaTemSimboloUnico(linha, coringa)
+      const proximoSimbolo = linha[0];
+      if (simbolo != proximoSimbolo && proximoSimbolo != coringa) return false
+
+      else return linhaTemSimboloUnico(linha, coringa, simbolo)
     }
   }
 }
