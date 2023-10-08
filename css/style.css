@@ -16,7 +16,7 @@ html, body {
 
  /* A parte da pagina que fica atrás do painel principal do jogo */
 body {
-  background: rgb(177, 0, 0) url('./img/painel2-removebg.png'); /* Deixa a página em um tom vermelho e integou-se uma imagem nela. */
+  background: rgb(177, 0, 0) url('../img/painel2-removebg.png'); /* Deixa a página em um tom vermelho e integou-se uma imagem nela. */
   background-size: 50%; 
 
   min-width: 850px;
@@ -114,7 +114,7 @@ label[for="dimensoes-tabuleiro"] { /* Refere-se ao tamanho do nomenclatura "dime
 
 #painel-jogo { /* Refere-se ao painel do jogo. */
   padding: 1rem;
-  background-image: url('./img/painel2.png'); /* Adiciona a imagem do painel principal */
+  background-image: url('../img/painel2.png'); /* Adiciona a imagem do painel principal */
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
