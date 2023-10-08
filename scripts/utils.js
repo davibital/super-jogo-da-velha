@@ -99,15 +99,6 @@ const aninhar = (lista, tamanhoListas) => {
 } 
 
 /**
- * Esta função serve para remover uma ação relacionada ao clique de um botão.
- * @param {Array} listaBotoes - Lista com os botões presentes no HTML.
- * @param {Function} funcao - Função que será removida.
- */
-const removerAcaoBotoes = (listaBotoes, funcao) => {
-  listaBotoes.map(botao => botao.removeEventListener("click", funcao))
-}
-
-/**
  * Função para obter as dimensões do tabuleiro diretamente da página HTML e transformar em uma lista contendo os valores da quantidade de linhas e de colunas.
  * @param {HTMLElement} divTabuleiro - Div do HTML que representa o grid do tabuleiro.
  * @returns {Array} Uma lista contendo a quantidade de linhas e a quantidade de colunas, respectivamente.
@@ -140,7 +131,7 @@ const removerCharStr = (string, char) => {
   return strFiltrada
 }
 
-const ativarJogadores = (listaJogadores) => (sequenciaTurnos) => {
+const ativarJogadores = (listaJogadores) => (funcaoSorteio) => (sequenciaTurnos) => {
   const simboloTurno = sequenciaTurnos[0]
   const containerJogadores = Array.from(document.querySelectorAll(".jogador"));
 
@@ -152,11 +143,17 @@ const ativarJogadores = (listaJogadores) => (sequenciaTurnos) => {
 
   containerJogadores.map(container => {
     const nomeJogador = container.querySelector(".nome").innerHTML
-    if (nomeJogador == jogadorDaRodada.nome)
+    const botaoSorteio = container.querySelector(".botao-sorteio");
+    if (nomeJogador == jogadorDaRodada.nome) {
       container.classList.add("ativo");
-    else
+      botaoSorteio.addEventListener("click", funcaoSorteio);
+    }
+    else {
       container.classList.remove("ativo");
+      botaoSorteio.removeEventListener("click", funcaoSorteio);
+    }
   })
 }
+
 
 export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, obterDimensoesTabuleiro, contarCharStr, removerCharStr, ativarJogadores }

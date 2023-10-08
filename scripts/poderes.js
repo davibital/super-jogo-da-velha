@@ -1,11 +1,61 @@
-// Esta função serve para passar a vez (turno) após uma jogada
-const passarVez = (sequenciaTurnos) => { sequenciaTurnos.reverse() }
+import { passarVez } from "./actions.js";
+
+/**
+ * Função para inserir o símbolo em alguma casa que esteja desocupada.
+ * @param {Array} sequenciaTurnos - Lista que contém os símbolos na ordem em que serão jogados.
+ */
+const inserirSimbolo = (sequenciaTurnos) => (tabuleiro, linha, coluna) => {
+  if (tabuleiro[linha][coluna] != '') return false;
+
+  const turnoAtual = sequenciaTurnos[0];
+
+  tabuleiro[linha][coluna] = turnoAtual;
+
+  return true;
+}
+
+/**
+ * Função para alternar o símbolo de alguma casa do tabuleiro pequeno que já foi ocupada.
+ * @param {Array} sequenciaTurnos - Lista que contém os símbolos na ordem em que serão jogados.
+ * @returns {Function} - Função responsável por alternar o símbolo do oponente
+ */
+const alternarSimbolo = (sequenciaTurnos) => {
+  alert("Você ganhou a função de alternar o símbolo de alguma casa ocupada pelo oponente!");
+
+  /**
+   * Função auxiliar para alternar o símbolo de alguma casa do tabuleiro pequeno que já foi ocupada.
+   * @param {Array} tabuleiro - Matriz que representa o tabuleiro jogado.
+   * @param {Number} linha - Índice da linha do tabuleiro.
+   * @param {Number} coluna - Índice da coluna do tabuleiro.
+   * @returns 
+   */
+  const alternarSimboloAux = (tabuleiro, linha, coluna) => {
+    const turnoAtual = sequenciaTurnos[0];
+
+    if (tabuleiro[linha][coluna] == turnoAtual) return false;
+
+    tabuleiro[linha][coluna] = turnoAtual;
+
+    return true;
+  }
+
+  return alternarSimboloAux;
+}
+
+const perderAVez = (sequenciaTurnos) => {
+  alert("Infelizmente você perdeu a vez!");
+  passarVez(sequenciaTurnos);
+
+  return false;
+}
+
+const listaPoderes = [inserirSimbolo, alternarSimbolo, perderAVez, perderAVez, perderAVez, perderAVez];
 
 /**
  * Função para sortear o poder do jogador e atribuir o poder a ele.
  * @param {Array} listaJogadores - Lista contendo as informações dos dois jogadores.
  */
-const sortearPoder = (listaJogadores) => (evento) => {
+const sortearPoder = (listaJogadores, sequenciaTurnos, poderes = listaPoderes) => (evento) => {
   const botao = evento.srcElement;
 
   const elementoPai = botao.parentElement;
@@ -13,38 +63,15 @@ const sortearPoder = (listaJogadores) => (evento) => {
   const jogador = elementoPai.id.split("-")[1];
   const indiceJogador = jogador == "primeiro" ? 0 : 1;
 
-  const poderSorteado = Math.floor(Math.random() * 9);
+  // Sorteando o índice do poder do 1 até o último índice da lista de poderes, exlcuindo o primeiro índice pois é a ação padrão.
+  const indicePoder = Math.floor(Math.random() * (listaPoderes.length - 1) ) + 1;
 
-  listaJogadores[indiceJogador].poder = poderSorteado;
+  const poderSorteado = poderes[indicePoder];
+
+  listaJogadores[indiceJogador].poder = poderSorteado(sequenciaTurnos);
+
+  if (indicePoder >= 2)
+    listaJogadores[indiceJogador].poder = poderes[0];
 }
 
-/**
- * Função para inserir o símbolo em alguma casa que esteja desocupada.
- * @param {Array} sequenciaTurnos - Lista que contém os símbolos na ordem em que serão jogados.
- * @param {HTMLElement} botao - Elemento HTML que representa o botão clicado.
- */
-const inserirSimbolo = (sequenciaTurnos) => (botao) => {
-  if (botao.innerText == '') return;
-
-  const turnoAtual = sequenciaTurnos[0];
-
-  botao.innerText = turnoAtual;
-  passarVez(sequenciaTurnos);
-}
-
-/**
- * Função para alternar o símbolo de alguma casa do tabuleiro pequeno que já foi ocupada.
- * @param {Array} sequenciaTurnos - Lista que contém os símbolos na ordem em que serão jogados.
- * @param {HTMLElement} botao - Elemento HTML que representa o botão clicado.
- * @returns 
- */
-const alternarSimbolo = (sequenciaTurnos) => (botao) => {
-  const turnoAtual = sequenciaTurnos[0];
-
-  if (botao.innerText == turnoAtual) return;
-
-  botao.innerText = turnoAtual;
-  passarVez(sequenciaTurnos);
-}
-
-export { inserirSimbolo, alternarSimbolo, sortearPoder, passarVez };
+export { sortearPoder, listaPoderes };

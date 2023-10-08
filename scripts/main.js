@@ -1,5 +1,5 @@
-import { criarTabuleiro, removerAcaoBotoes, obterDimensoesTabuleiro, ativarJogadores } from './utils.js'
-import { sortearPoder } from './poderes.js';
+import { criarTabuleiro,  obterDimensoesTabuleiro, ativarJogadores } from './utils.js'
+import { sortearPoder, listaPoderes } from './poderes.js';
 import { verificarVencedor } from './verificacoes.js'
 import { gerarSequenciaTurnos } from './random.js';
 import { passarVez } from './actions.js';
@@ -14,20 +14,25 @@ const tabuleiroGrandeVazio = criarTabuleiro(linhas)(colunas);
 
 const tabuleiroGrande = tabuleiroGrandeVazio.map(linha => linha.map(() => criarTabuleiro(linhas)(colunas)));
 
-const listaJogadores = Array.from(document.querySelectorAll(".jogador"));
-
 // Registro com o nome dos jogadores e respectivo símbolo
-const jogadores = listaJogadores.map(elemento => {
-  const nome = elemento.querySelector(".nome").innerHTML;
-  const simbolo = elemento.querySelector(".simbolo").innerHTML;
+const listaJogadores = Array.from(document.querySelectorAll(".jogador"))
+  .map(elemento => {
+    const nome = elemento.querySelector(".nome").innerHTML;
+    const simbolo = elemento.querySelector(".simbolo").innerHTML;
 
-  return { nome: nome, simbolo: simbolo };
-});
-
-const ativarJogadorDaRodada = ativarJogadores(jogadores);
+    return { nome: nome, simbolo: simbolo };
+  });
 
 // Lista com a determinada sequência dos símbolos de quem joga primeiro e por último. (Gerada aleatoriamente) 
-const sequenciaTurnos = gerarSequenciaTurnos(jogadores);
+const sequenciaTurnos = gerarSequenciaTurnos(listaJogadores);
+
+const jogadores = listaJogadores.map(jogador => {
+  return { nome: jogador.nome, simbolo: jogador.simbolo, poder: listaPoderes[0](sequenciaTurnos) }
+});
+
+const sortearPoderJogadores = sortearPoder(jogadores, sequenciaTurnos);
+
+const ativarJogadorDaRodada = ativarJogadores(jogadores)(sortearPoderJogadores);
 ativarJogadorDaRodada(sequenciaTurnos[0]);
 
 // Esta função permite que o símbolo seja ilustrado sobreposto ao Jogo da Velha pequeno
@@ -44,9 +49,6 @@ const vencedorNoTabuleiroMenor = (elementoDoTabuleiroMenor, SimboloVencedor) => 
 const manipularVitoriaTabuleiroPequeno = (elementoPai, linhaGrande, colunaGrande, turnoAtual = sequenciaTurnos[0]) => {
   // Atualiza o tabuleiro grande com o vencedor do tabuleiro pequeno
   tabuleiroGrande[linhaGrande][colunaGrande] = turnoAtual;
-  // Remove ação de todos os botões do tabuleiro pequeno vencido
-  const listaBotoes = Array.from(elementoPai.querySelectorAll("button"));
-  removerAcaoBotoes(listaBotoes, clicarBotao);
 
   // Exibe o símbolo do jogador vencedor na grade menor correspondente.
   vencedorNoTabuleiroMenor(elementoPai, turnoAtual);
@@ -60,10 +62,8 @@ const temVencedor = () => {
   const vencedor = verificarVencedor(tabuleiroGrande);
   if (vencedor) {
     // Remove ação de todos os botões do jogo, finalizando a partida.
-    removerAcaoBotoes(Array.from(document.querySelectorAll("button")), clicarBotao)
 
     const ultimoJogador = document.querySelector(".jogador.ativo")
-    console.log(ultimoJogador);
     const simboloUltimoJogador = ultimoJogador.querySelector(".simbolo").innerHTML;
 
     const jogadorVencedor = jogadores.reduce((jogadorVecedor, jogadorAtual) => {
@@ -100,9 +100,17 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
   
   // Obtém o tabuleiro pequeno correspondente no tabuleiro grande
   const tabuleiroPequeno = tabuleiroGrande[linhaGrande][colunaGrande];
+
+  const jogadorAtual = jogadores.reduce((jogadorAtual, jogador) => {
+    if (jogador.simbolo == turnoAtual) jogadorAtual = jogador;
+
+    return jogadorAtual;
+  });
+
+  if (!jogadorAtual.poder(tabuleiroPequeno, linhaPequeno, colunaPequeno))
+    return;
   
   // Atualiza o tabuleiro pequeno e a interface
-  tabuleiroPequeno[linhaPequeno][colunaPequeno] = turnoAtual;
   botao.innerHTML = turnoAtual;
   
   // Esta função faz com que seja garantido que a lógica de alternarSimbolo(logo abaixo) seja executado todo vez que um botão é clicado.É um escopo local, porque está defenida dentro de uma outra que também chama-se clicarBotao, mas não afeta a original, porque refere-se a lógica dela.
@@ -111,9 +119,6 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
   alternarSimbolo(botao);
 
  } */
-  
-  // Remove o evento de clique para esse botão
-  botao.removeEventListener("click", clicarBotao);
   
   // Verifica se há um vencedor no tabuleiro pequeno
   if (verificarVencedor(tabuleiroPequeno)) {
@@ -133,20 +138,14 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
   }
   
   // Verifica o estado geral da partida e passa a vez caso não exista um vencedor
-  if (!temVencedor())
-    passarVez(sequenciaTurnos, jogadores);
+  if (!temVencedor()) 
+    passarVez(sequenciaTurnos);
 }
 
 const clicarBotao = clicarBotaoGeral(sequenciaTurnos);
-
-const sortearPoderJogadores = sortearPoder(jogadores);
 
 // Adicionando o evento de clique a todos os botões
 const botoes = Array.from(document.querySelectorAll("#conteudo-jogo button"));
 botoes.map(botao => botao.addEventListener("click", clicarBotao));
 
-// Adicionando o evento de sorteio aos botões de sorteio
-const botoesSorteio = Array.from(document.querySelectorAll(".botao-sorteio"));
-botoesSorteio.map(botao => botao.addEventListener("click", sortearPoderJogadores));
-
-export { tabuleiroGrande, ativarJogadorDaRodada }
+export { tabuleiroGrande, ativarJogadorDaRodada, sortearPoderJogadores }
