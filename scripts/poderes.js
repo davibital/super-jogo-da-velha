@@ -1,4 +1,5 @@
 import { passarVez } from "./actions.js";
+import * as utils from './utils.js';
 
 /**
  * Função para inserir o símbolo em alguma casa que esteja desocupada.
@@ -56,7 +57,23 @@ const perderAVez = (sequenciaTurnos) => {
   return false;
 }
 
-const listaPoderes = [inserirSimbolo, alternarSimbolo, perderAVez, perderAVez, perderAVez, perderAVez];
+/**
+ * Esta função vai gerar uma lista com os poderes e as "punições" (que seria perder a vez).
+ * @param {Array} poderes - Lista com os poderes definidos
+ * @param {Number} probabilidade - Probabilidade de um poder ser sorteado. (Aceita apenas valores múltiplos como 0%, 10%, 20%, ...)
+ * @returns {Array} - retorna uma lista que possui todos os poderes definidos e um número determinado de instâncias da função passarVez().
+ */
+const criarListaPoderes = (poderes, probabilidade) => {
+  // Caso seja 0%, você está "desativando" a mecânica, quem clicar nesse botão apenas perderá a vez
+  if (probabilidade === 0) return [passarVez]
+  else {
+    const tamanhoListaPassarVez = ((100 - probabilidade)/probabilidade) * poderes.length 
+    return [...poderes, ...utils.criarListaElementosIguais(perderAVez, tamanhoListaPassarVez)]
+  }
+}
+
+const poderes = [inserirSimbolo, alternarSimbolo]
+const listaPoderes = criarListaPoderes(poderes, 50)
 
 /**
  * Função para sortear o poder do jogador e atribuir o poder a ele.
