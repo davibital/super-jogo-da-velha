@@ -1,14 +1,14 @@
 #conteudo-jogo {
   background-color: black;
-
-  display: flex;
   
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #container-primeiro-jogador, #container-segundo-jogador {
-  background-color:  rgb(32, 63, 7);
+  background-color:  rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
   width: 75%;
 
   display: flex;
@@ -20,7 +20,7 @@
 
   align-items: center;
 
-  color:white ;
+  color: white;
   border: 2px solid black;
 }
 
@@ -38,21 +38,32 @@ aside.container {
 aside.container h1 {
   padding: 0;
   margin: 0;
+  text-shadow: 3px 4px rgb(12, 1, 1);
 
   text-align: center;
+}
+
+.nome {
+  font-size: 30px;
+}
+
+.simbolo {
+  font-size: 50px;
 }
 
 .grid-jogo {
   display: grid;
   grid-template-columns: repeat(3, auto);
-  gap: 5px;
+  height: 100%;
+  width: 100%;
+  gap: 4px;
 }
 
 .grid-jogo-pequeno {
   display: grid;
   grid-template-columns: repeat(3, auto);
-  grid-template-columns: 50px 50px 50px;
-  grid-template-rows: 50px 50px 50px;
+  grid-template-columns: 45px 45px 45px;
+  grid-template-rows: 45px 45px 45px;
   gap: 1px;
 
   position: relative;

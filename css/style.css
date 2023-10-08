@@ -15,8 +15,7 @@ html, body {
 }
 
 body {
-  background-color: rgb(177, 0, 0);
-  background-image: url('../imagens/painel2-removebg.png'); 
+  background: rgb(177, 0, 0) url('../imagens/painel2-removebg.png');
   background-size: 50%;
 
   min-width: 850px;
@@ -26,10 +25,6 @@ body {
   flex-direction: column;
 
   align-items: center;
-}
-
-h1 {
-  font-size: 3.2rem;
 }
 
 p {
@@ -46,6 +41,7 @@ header h1 {
 /*Formulário para Inciar o Jogo*/
 
 #configuracoes-jogo {
+  width: 450px;
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -60,6 +56,25 @@ header h1 {
   text-align: center;
 }
 
+#container-botao-iniciar {
+  padding-top: 5%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+#botao-iniciar {
+  font-size: 20px; 
+  transition: transform 200ms ease-in-out;
+  color: black;
+  background-color: white;
+  cursor: pointer;
+}
+  
+#botao-iniciar:hover {
+  transform: scale(1.05);
+}
 
 #tabuleiro{
   text-align: center;
@@ -107,23 +122,8 @@ label[for="dimensoes-tabuleiro"] {
   height: 90%;
   display: flex;
   justify-content: center;
-  border: 10px solid black;
+  border: 5px solid black;
 }
-
-
-#botao-iniciar {
-  width: 450px;
-  height: 50px;
-  font-size: 20px; 
-  background-color: rgb(32, 63, 7);
-  transition: transform 200ms ease-in-out;
-}
-
-#botao-iniciar:hover {
-  transform: scale(1.05);
-}
-
-
 
 #container-botoes-interface {
   display: flex;
@@ -155,7 +155,7 @@ label[for="dimensoes-tabuleiro"] {
   font-weight: bold;
 
   color: white;
-  background-color: rgb(32, 63, 7);
+  background-color: rgb(177, 0, 0);
   padding: 0.5rem 1rem;
 
   border-radius: 1rem;
@@ -182,10 +182,6 @@ label[for="dimensoes-tabuleiro"] {
   animation: animacao-botao .5s alternate infinite;
 }
 
-#botao-reiniciar:hover, #botao-voltar:hover, .botao-sorteio:hover {
-  animation: animacao-botao2 .5s alternate infinite;
-}
-
 @keyframes animacao-botao {
   from {  
     padding: 1.5rem 3rem;
@@ -199,20 +195,13 @@ label[for="dimensoes-tabuleiro"] {
   }
 }
 
-
-@keyframes animacao-botao2 {
-  from {  
-    padding: 0.5rem 1rem;
-    font-size: 1.2rem;
-    color: rgb(10, 10, 10);
-  }
-  to {
-    padding: 0.5rem 1rem;
-    font-size: 1.2rem;
-    color: white;
-  }
-}
-
 ::-webkit-scrollbar {
   width: 1px;
+}
+
+@media screen and (min-width: 1200px) {
+  /* Estilos para telas de desktop mais largas */
+  header h1 {
+    font-size: 30px;
+  }
 }
