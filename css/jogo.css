@@ -74,7 +74,6 @@ aside.container h1 {
   grid-template-columns: 52px 52px 52px;
   grid-template-rows: 52px 52px 52px;
   gap: 1px;
-  border: 20px solid black;
   position: relative;
 }
 
@@ -95,7 +94,7 @@ aside.container h1 {
 .grid-jogo-pequeno button {
   font-size: 35px;
   font-weight: bold;
-  border: 2px solid red;
+  border: none;
   cursor: pointer;
   opacity: 0.95;
 }

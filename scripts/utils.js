@@ -131,6 +131,17 @@ const removerCharStr = (string, char) => {
   return strFiltrada
 }
 
+/**
+ * Esta função cria uma lista de tamanho determinado com elementos iguais.
+ * @param {*} elemento - Elemento que será repetido na lista.
+ * @param {Number} tamanho - Tamanho da lista
+ * @returns {Array}
+ */
+const criarListaElementosIguais = (elemento, tamanho) => {
+  if (tamanho === 0) return []
+  else return [elemento, ...criarListaElementosIguais(elemento, tamanho -= 1)]
+}
+
 const ativarJogadores = (listaJogadores) => (funcaoSorteio) => (sequenciaTurnos) => {
   const simboloTurno = sequenciaTurnos[0]
   const containerJogadores = Array.from(document.querySelectorAll(".jogador"));
@@ -156,4 +167,7 @@ const ativarJogadores = (listaJogadores) => (funcaoSorteio) => (sequenciaTurnos)
 }
 
 
-export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, obterDimensoesTabuleiro, contarCharStr, removerCharStr, ativarJogadores }
+export { 
+  criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, 
+  desaninhar, aninhar, obterDimensoesTabuleiro, contarCharStr, removerCharStr, criarListaElementosIguais, ativarJogadores 
+}
