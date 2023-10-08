@@ -4,12 +4,10 @@ import { passarVez } from "./actions.js";
  * Função para inserir o símbolo em alguma casa que esteja desocupada.
  * @param {Array} sequenciaTurnos - Lista que contém os símbolos na ordem em que serão jogados.
  */
-const inserirSimbolo = (sequenciaTurnos) => (tabuleiro, linha, coluna) => {
-  if (tabuleiro[linha][coluna] != '') return false;
+const inserirSimbolo = (sequenciaTurnos) => (simbolo) => (tabuleiro, linha, coluna) => {
+  if (tabuleiro[linha][coluna] != '') return false
 
-  const turnoAtual = sequenciaTurnos[0];
-
-  tabuleiro[linha][coluna] = turnoAtual;
+  tabuleiro[linha][coluna] = simbolo;
 
   return true;
 }
@@ -29,12 +27,10 @@ const alternarSimbolo = (sequenciaTurnos) => {
    * @param {Number} coluna - Índice da coluna do tabuleiro.
    * @returns 
    */
-  const alternarSimboloAux = (tabuleiro, linha, coluna) => {
-    const turnoAtual = sequenciaTurnos[0];
+  const alternarSimboloAux = (simbolo) => (tabuleiro, linha, coluna) => {
+    if (tabuleiro[linha][coluna] == simbolo) return false;
 
-    if (tabuleiro[linha][coluna] == turnoAtual) return false;
-
-    tabuleiro[linha][coluna] = turnoAtual;
+    tabuleiro[linha][coluna] = simbolo;
 
     return true;
   }
@@ -71,7 +67,7 @@ const sortearPoder = (listaJogadores, sequenciaTurnos, poderes = listaPoderes) =
   listaJogadores[indiceJogador].poder = poderSorteado(sequenciaTurnos);
 
   if (indicePoder >= 2)
-    listaJogadores[indiceJogador].poder = poderes[0];
+    listaJogadores[indiceJogador].poder = poderes[0](sequenciaTurnos);
 }
 
 export { sortearPoder, listaPoderes };

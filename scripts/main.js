@@ -107,10 +107,12 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
     return jogadorAtual;
   });
 
-  if (!jogadorAtual.poder(tabuleiroPequeno, linhaPequeno, colunaPequeno))
+  if (!jogadorAtual.poder(turnoAtual)(tabuleiroPequeno, linhaPequeno, colunaPequeno))
     return;
   
-  // Atualiza o tabuleiro pequeno e a interface
+  // Retorna à ação padrão do jogador, que é a de inserir o símbolo em uma casa vazia
+  jogadorAtual.poder = listaPoderes[0](sequenciaTurnos);
+  // Atualiza a interface
   botao.innerHTML = turnoAtual;
   
   // Esta função faz com que seja garantido que a lógica de alternarSimbolo(logo abaixo) seja executado todo vez que um botão é clicado.É um escopo local, porque está defenida dentro de uma outra que também chama-se clicarBotao, mas não afeta a original, porque refere-se a lógica dela.
