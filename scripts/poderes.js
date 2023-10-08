@@ -3,6 +3,11 @@ import { passarVez } from "./actions.js";
 /**
  * Função para inserir o símbolo em alguma casa que esteja desocupada.
  * @param {Array} sequenciaTurnos - Lista que contém os símbolos na ordem em que serão jogados.
+ * @param {String} simbolo - Símbolo utilizado pelo jogador.
+ * @param {Array} tabuleiro - Matriz que representa o tabuleiro jogado.
+  * @param {Number} linha - Índice da linha do tabuleiro.
+  * @param {Number} coluna - Índice da coluna do tabuleiro.
+  * @returns {Boolean} Valor booleano para indicar se a ação foi bem sucedida ou não.
  */
 const inserirSimbolo = (sequenciaTurnos) => (simbolo) => (tabuleiro, linha, coluna) => {
   if (tabuleiro[linha][coluna] != '') return false
@@ -22,10 +27,11 @@ const alternarSimbolo = (sequenciaTurnos) => {
 
   /**
    * Função auxiliar para alternar o símbolo de alguma casa do tabuleiro pequeno que já foi ocupada.
+   * @param {String} simbolo - Símbolo utilizado pelo jogador.
    * @param {Array} tabuleiro - Matriz que representa o tabuleiro jogado.
    * @param {Number} linha - Índice da linha do tabuleiro.
    * @param {Number} coluna - Índice da coluna do tabuleiro.
-   * @returns 
+   * @returns {Boolean} Valor booleano para indicar se a ação foi bem sucedida ou não.
    */
   const alternarSimboloAux = (simbolo) => (tabuleiro, linha, coluna) => {
     if (tabuleiro[linha][coluna] == simbolo) return false;
@@ -38,6 +44,11 @@ const alternarSimbolo = (sequenciaTurnos) => {
   return alternarSimboloAux;
 }
 
+/**
+ * Função para passar a vez para o próximo devido ao sorteio do poder.
+ * @param {Array} sequenciaTurnos - Lista que contém os símbolos na ordem em que serão jogados.
+ * @returns {Boolean} Valor booleano para indicar se a ação foi bem sucedida ou não.
+ */
 const perderAVez = (sequenciaTurnos) => {
   alert("Infelizmente você perdeu a vez!");
   passarVez(sequenciaTurnos);
@@ -50,6 +61,7 @@ const listaPoderes = [inserirSimbolo, alternarSimbolo, perderAVez, perderAVez, p
 /**
  * Função para sortear o poder do jogador e atribuir o poder a ele.
  * @param {Array} listaJogadores - Lista contendo as informações dos dois jogadores.
+ * @param {Array} sequenciaTurnos - Lista que contém os símbolos na ordem em que serão jogados.
  */
 const sortearPoder = (listaJogadores, sequenciaTurnos, poderes = listaPoderes) => (evento) => {
   const botao = evento.srcElement;
@@ -66,6 +78,7 @@ const sortearPoder = (listaJogadores, sequenciaTurnos, poderes = listaPoderes) =
 
   listaJogadores[indiceJogador].poder = poderSorteado(sequenciaTurnos);
 
+  // Reatribuição do poder do jogador caso tenha perdido a vez, retorna para a ação padrão.
   if (indicePoder >= 2)
     listaJogadores[indiceJogador].poder = poderes[0](sequenciaTurnos);
 }
