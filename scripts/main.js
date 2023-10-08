@@ -6,14 +6,23 @@ import { passarVez } from './actions.js';
 
 // Obtendo as dimensões do tabuleiro, passando como parâmetro o elemento HTML que é uma div que possui a classe "grid-jogo"
 const dimensoes = obterDimensoesTabuleiro(document.querySelector("div>.grid-jogo"));
+const linhas = dimensoes[0];
+const colunas = dimensoes[1];
 
 // Cria um tabuleiro 3x3 para o jogo grande
-const tabuleiroGrandeVazio = criarTabuleiro(dimensoes[0])(dimensoes[1]);
+const tabuleiroGrandeVazio = criarTabuleiro(linhas)(colunas);
 
-const tabuleiroGrande = tabuleiroGrandeVazio.map(linha => linha.map(() => criarTabuleiro(3)(3)));
+const tabuleiroGrande = tabuleiroGrandeVazio.map(linha => linha.map(() => criarTabuleiro(linhas)(colunas)));
+
+const listaJogadores = Array.from(document.querySelectorAll(".jogador"));
 
 // Registro com o nome dos jogadores e respectivo símbolo
-const jogadores = [{ nome: 'J1', simbolo: 'X' }, { nome: 'J2', simbolo: 'O' }];
+const jogadores = listaJogadores.map(elemento => {
+  const nome = elemento.querySelector(".nome").innerHTML;
+  const simbolo = elemento.querySelector(".simbolo").innerHTML;
+
+  return { nome: nome, simbolo: simbolo };
+});
 
 // Lista com a determinada sequência dos símbolos de quem joga primeiro e por último. (Gerada aleatoriamente) 
 const sequenciaTurnos = gerarSequenciaTurnos(jogadores);
@@ -91,11 +100,15 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
   if (verificarVencedor(tabuleiroPequeno)) {
     manipularVitoriaTabuleiroPequeno(elementoPai, linhaGrande, colunaGrande);
   } else {
-    const existePosicaoDisponivel = tabuleiroPequeno.reduce((acc, linha) => linha.reduce((acc, elemento) => {
-      if (elemento == '')
-        acc = true;
+    const existePosicaoDisponivel = tabuleiroPequeno.reduce((acc, linha) => {
+      acc = linha.reduce((acc, elemento) => {
+        if (elemento == '')
+          acc = true;
+        return acc;
+      }, false);
+
       return acc;
-    }, false), false);
+    }, false);
     
     if (!existePosicaoDisponivel) manipularVitoriaTabuleiroPequeno(elementoPai, linhaGrande, colunaGrande, "?");
   }
