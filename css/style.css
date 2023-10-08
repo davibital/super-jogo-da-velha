@@ -126,7 +126,7 @@ label[for="dimensoes-tabuleiro"] {
   cursor: pointer;
 }
 
-#botao-sortear {
+.botao-sorteio {
   border: 1px solid black;
 
   font-size: 1.2rem;
@@ -145,7 +145,7 @@ label[for="dimensoes-tabuleiro"] {
   animation: animacao-botao .5s alternate infinite;
 }
 
-#botao-reiniciar:hover, #botao-voltar:hover, #botao-sortear:hover {
+#botao-reiniciar:hover, #botao-voltar:hover, .botao-sorteio:hover {
   animation: animacao-botao2 .5s alternate infinite;
 }
 
