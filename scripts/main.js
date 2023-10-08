@@ -121,11 +121,14 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
     manipularVitoriaTabuleiroPequeno(elementoPai, linhaGrande, colunaGrande);
   } else {
     const existePosicaoDisponivel = tabuleiroPequeno.reduce((acc, linha) => {
-      acc = linha.reduce((acc, elemento) => {
+      const linhaDisponivel = linha.reduce((acc, elemento) => {
         if (elemento == '')
           acc = true;
         return acc;
       }, false);
+
+      if (linhaDisponivel)
+        acc = true;
 
       return acc;
     }, false);
