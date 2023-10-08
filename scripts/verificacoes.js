@@ -1,4 +1,4 @@
-import { transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais } from './utils.js';
+import { transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, contarCharStr, removerCharStr } from './utils.js';
 
 /**
  * Esta função serve para verificar as linhas do tabuleiro e retornar se existe alguma linha vencedora, ou seja, alguma linha completa com um único símbolo X ou O.
@@ -65,24 +65,42 @@ const verificarColunas = (tabuleiro, coringa) => {
  * @param {Array} tabuleiro - Matriz de duas dimensões, correspondente ao tabuleiro do jogo.
  * @returns {Boolean} Valor booleano que indica se existe alguma diagonal vencedora, ou seja, uma coluna com todos os elementos iguais, desconsiderando o elemento vazio.
  */
-const verificarDiagonais = (tabuleiro) => {
+const verificarDiagonais = (tabuleiro, coringa) => {
   const tamanhoTabuleiro = tabuleiro.length
   // Esta função serve para verificar a diagonal principal do tabuleiro e retornar se a diagonal principal é "vencedora".
-  const verificarDiagonalPrincipal = (tabuleiro) => {
+  const verificarDiagonalPrincipal = (tabuleiro, coringa) => {
     const strTracoPrincipal = tracoPrincipal(tabuleiro) // Calculamos o traço da matriz (tabuleiro)
-    return (strTracoPrincipal.length === tamanhoTabuleiro) && verificarCaracteresIguais(strTracoPrincipal) 
+    /* 
+    A partir de agora faremos alguns tratamentos que são úteis para o tabuleiro grande, já que, quando o jogo empata, um símbolo coringa '?' aparece.
+    Esse tratamento consiste em retirar o símbolo e modificar o método de verificação, de maneira que essa função continue sendo útil 
+    tanto para o tabuleiro do jogo quanto para os jogos pequenos. 
+    */
+    // Número de ocorrência do símbolo coringa.
+    const numeroSimbolosCoringas = contarCharStr(strTracoPrincipal, coringa) 
+    // Retirando esses símbolos do Traço calculado.
+    const strTracoPrincipalTratado = removerCharStr(strTracoPrincipal, coringa)
+    if (numeroSimbolosCoringas !== 3) return (strTracoPrincipalTratado.length === (tamanhoTabuleiro - numeroSimbolosCoringas)) && verificarCaracteresIguais(strTracoPrincipalTratado)
+
     /* 
     Verificamos se todos os quadrados estão preenchidos a partir da comparação com o tamanhoTabuleiro (length.tabuleiro).
     E depois com a função verificarCaracteresIguais() verificamos se todos os caracteres são iguais. 
     A partir da conjunção (&&) sabemos se a diagonal é "vencedora" ou não.
+
+    Obs.: A operação de subtração entre tamanhoTabuleiro e numeroSimbolosCoringas faz com que a conjunção ignore a existência dessa mecânica
+    e se ajuste para verificar se a diagonal no tabuleiro grande é vencedora.
     */ 
   }
 
-  // Esta função serve para verificar a diagonal secundária do tabuleiro e retornar se a diagonal secundária é "vencedora".
+  /* 
+  Esta função serve para verificar a diagonal secundária do tabuleiro e retornar se a diagonal secundária é "vencedora".
+  Sua lógica é a mesma que a função anterior.
+  */
   const verificarDiagonalSecundaria = (tabuleiro) => {
     const strTracoSecundario = tracoSecundario(tabuleiro) // Calculamos o traço "secundário" da matriz (tabuleiro)
-    return (strTracoSecundario.length === tamanhoTabuleiro) && verificarCaracteresIguais(strTracoSecundario)
+    const numeroSimbolosCoringas = contarCharStr(strTracoSecundario, coringa)
+    const strTracoSecundarioTratado = removerCharStr(strTracoSecundario, coringa) 
     // A lógica do return aqui é a mesma da função anterior.
+    if (numeroSimbolosCoringas !== 3) return (strTracoSecundarioTratado.length === (tamanhoTabuleiro - numeroSimbolosCoringas)) && verificarCaracteresIguais(strTracoSecundarioTratado)
   }
 
   return verificarDiagonalPrincipal(tabuleiro) || verificarDiagonalSecundaria(tabuleiro)
