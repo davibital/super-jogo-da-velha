@@ -107,10 +107,12 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
     return jogadorAtual;
   });
 
-  if (!jogadorAtual.poder(tabuleiroPequeno, linhaPequeno, colunaPequeno))
+  if (!jogadorAtual.poder(turnoAtual)(tabuleiroPequeno, linhaPequeno, colunaPequeno))
     return;
   
-  // Atualiza o tabuleiro pequeno e a interface
+  // Retorna à ação padrão do jogador, que é a de inserir o símbolo em uma casa vazia
+  jogadorAtual.poder = listaPoderes[0](sequenciaTurnos);
+  // Atualiza a interface
   botao.innerHTML = turnoAtual;
   
   // Verifica se há um vencedor no tabuleiro pequeno
