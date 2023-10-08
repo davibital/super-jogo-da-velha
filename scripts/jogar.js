@@ -147,7 +147,7 @@ desenharTabuleiro(dimensoesTabuleiro);
 
 // Adicionar código js correspondente à página do tabuleiro
 const novoScript = document.createElement("script");
-novoScript.setAttribute("src", "../scripts/main.js");
+novoScript.setAttribute("src", "./scripts/main.js");
 novoScript.setAttribute("type", "module");
 document.body.appendChild(novoScript);
 
