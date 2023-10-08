@@ -1,18 +1,18 @@
-import * as random from './random.js';
-import * as actions from './actions.js';
+import { embaralharMatriz, randint } from './random.js';
+import { atualizarTabuleiroHTML } from './actions.js';
 import { tabuleiroGrande, jogadores, sequenciaTurnos } from './main.js';
 
 const embaralharJogoPequeno = (linhaJogoPequeno, colunaJogoPequeno) => {
   const jogoPequenoJS = tabuleiroGrande[linhaJogoPequeno][colunaJogoPequeno]
-  const jogoPequenoJSEmbaralhado = random.embaralharMatriz(jogoPequenoJS)
+  const jogoPequenoJSEmbaralhado = embaralharMatriz(jogoPequenoJS)
 
   tabuleiroGrande[linhaJogoPequeno][colunaJogoPequeno] = jogoPequenoJSEmbaralhado
-  //actions.atualizarTabuleiroHTML()
+  //atualizarTabuleiroHTML()
 }
 
 const embaralharJogoPequenoAleatorio = () => {
-  const indexLinhaAleatorio = random.randint(0, tabuleiroGrande.length - 1)
-  const indexColunaAleatorio = random.randint(0, tabuleiroGrande.length - 1)
+  const indexLinhaAleatorio = randint(0, tabuleiroGrande.length - 1)
+  const indexColunaAleatorio = randint(0, tabuleiroGrande.length - 1)
 
   const jogoSorteado = tabuleiroGrande[indexLinhaAleatorio][indexColunaAleatorio]
   if (Array.isArray(jogoSorteado)) return embaralharJogoPequeno(indexLinhaAleatorio, indexColunaAleatorio)
@@ -26,3 +26,5 @@ const embaralharTabuleiro = () => {
     })
   })
 }
+
+export { embaralharJogoPequeno, embaralharJogoPequenoAleatorio, embaralharTabuleiro }
