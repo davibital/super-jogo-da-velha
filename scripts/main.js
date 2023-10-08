@@ -113,13 +113,6 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
   // Atualiza o tabuleiro pequeno e a interface
   botao.innerHTML = turnoAtual;
   
-  // Esta função faz com que seja garantido que a lógica de alternarSimbolo(logo abaixo) seja executado todo vez que um botão é clicado.É um escopo local, porque está defenida dentro de uma outra que também chama-se clicarBotao, mas não afeta a original, porque refere-se a lógica dela.
-  
- /* const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
-  alternarSimbolo(botao);
-
- } */
-  
   // Verifica se há um vencedor no tabuleiro pequeno
   if (verificarVencedor(tabuleiroPequeno)) {
     manipularVitoriaTabuleiroPequeno(elementoPai, linhaGrande, colunaGrande);
