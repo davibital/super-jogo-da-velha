@@ -29,15 +29,15 @@ const verificarLinhas = ([...tabuleiro], coringa) => {
       simboloJogador = simbolo;
     
     if (simbolo != coringa && simbolo != simboloJogador) return false;
+    
+    // Verificação caso o símbolo seja um tabuleiro pequeno, no caso uma matriz de duas dimensões, ou seja um elemento vazio.
+    if (typeof simbolo != 'string' || simbolo == '') return false;
 
     // Caso base é a linha não ter mais nenhum símbolo e o símbolo atual ser igual ao outro símbolo da linha, desconsiderando o coringa.
     if (linha.length == 0) return true;
 
     if (simbolo == coringa)
       return linhaTemSimboloUnico(linha, coringa, simboloJogador)
-
-    // Verificação caso o símbolo seja um tabuleiro pequeno, no caso uma matriz de duas dimensões, ou seja um elemento vazio.
-    if (typeof simbolo != 'string' || simbolo == '') return false;
 
     else {
       const proximoSimbolo = linha[0];
