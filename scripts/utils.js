@@ -118,4 +118,23 @@ const obterDimensoesTabuleiro = (divTabuleiro) => {
   return dimensoes.map(indice => parseInt(indice) + 1);
 }
 
-export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, obterDimensoesTabuleiro }
+const ativarJogadores = (listaJogadores) => (sequenciaTurnos) => {
+  const simboloTurno = sequenciaTurnos[0]
+  const containerJogadores = Array.from(document.querySelectorAll(".jogador"));
+
+  const jogadorDaRodada = listaJogadores.reduce((jogadorDaRodada, jogador) => {
+    if (jogador.simbolo == simboloTurno) jogadorDaRodada = jogador;
+
+    return jogadorDaRodada;
+  }, '');
+
+  containerJogadores.map(container => {
+    const nomeJogador = container.querySelector(".nome").innerHTML
+    if (nomeJogador == jogadorDaRodada.nome)
+      container.classList.add("ativo");
+    else
+      container.classList.remove("ativo");
+  })
+}
+
+export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, obterDimensoesTabuleiro, ativarJogadores }

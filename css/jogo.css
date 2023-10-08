@@ -1,3 +1,8 @@
+:root {
+  --cor-fundo-jogador: rgba(0, 0, 0, 0.5);
+  --filtro-fundo-jogador: blur(2px);
+}
+
 #conteudo-jogo {
   background-color: black;
   
@@ -7,8 +12,8 @@
 }
 
 #container-primeiro-jogador, #container-segundo-jogador {
-  background-color:  rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(2px);
+  background-color:  var(--cor-fundo-jogador);
+  backdrop-filter: var(--filtro-fundo-jogador);
   width: 75%;
 
   display: flex;
@@ -41,6 +46,10 @@ aside.container h1 {
   text-shadow: 3px 4px rgb(12, 1, 1);
 
   text-align: center;
+}
+
+.jogador.ativo {
+  animation: animacao-jogador-ativo .5s alternate infinite;
 }
 
 .nome {
@@ -92,3 +101,12 @@ aside.container h1 {
 }
 
 .grid-jogo-pequeno button:hover {opacity: 1;}
+
+@keyframes animacao-jogador-ativo {
+  from {
+    background-color: var(--cor-fundo-jogador);
+  } 
+  to {
+    background-color: rgb(177, 0, 0);
+  }
+}

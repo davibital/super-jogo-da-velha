@@ -1,7 +1,13 @@
-import { tabuleiroGrande, jogadores, sequenciaTurnos } from './main.js';
+import { tabuleiroGrande, ativarJogadorDaRodada } from './main.js';
 
-// Esta função serve para passar a vez (turno) após uma jogada
-const passarVez = () => sequenciaTurnos.reverse()
+/**
+ * Esta função serve para passar a vez (turno) após uma jogada.
+ * @param {Array} sequenciaTurnos 
+ */
+const passarVez = (sequenciaTurnos) => {
+    sequenciaTurnos.reverse()
+    ativarJogadorDaRodada(sequenciaTurnos);
+}
 
 const atualizarTabuleiroHTML = () => {
     tabuleiroGrande.map((linhaGrande, indexLinhaJogoPequeno) => {
