@@ -40,13 +40,12 @@ const preencherInformacoesJogadores = (informacoesPrimeiroJogador, informacoesSe
 }
 
 /**
- * Função para desenhar o tabuleiro da página, baseado nas dimensões fornecidas pelo usuário.
- * @param {Number} dimensoesTabuleiro - Número inteiro que corresponde a quantidade de linhas e de colunas do tabuleiro.
+ * Função para desenhar o tabuleiro da página.
  */
-const desenharTabuleiro = (dimensoesTabuleiro) => {
+const desenharTabuleiro = () => {
   const conteudoJogo = document.getElementById("conteudo-jogo");
 
-  conteudoJogo.innerHTML = criarTabuleiroGrande(dimensoesTabuleiro, dimensoesTabuleiro);
+  conteudoJogo.innerHTML = criarTabuleiroGrande(3, 3);
 
   /**
    * Função para criar o HTML do tabuleiro grande
@@ -134,8 +133,6 @@ const segundoJogador = {
   simbolo: localStorage.getItem("simboloSegundoJogador")
 }
 
-const dimensoesTabuleiro = parseInt(localStorage.getItem("dimensoesTabuleiro"));
-
 const botaoVoltar = document.getElementById("botao-voltar");
 const botaoReiniciar = document.getElementById("botao-reiniciar");
 
@@ -143,7 +140,7 @@ botaoVoltar.addEventListener("click", voltarAoInicio);
 botaoReiniciar.addEventListener("click", reiniciar);
 
 preencherInformacoesJogadores(primeiroJogador, segundoJogador);
-desenharTabuleiro(dimensoesTabuleiro);
+desenharTabuleiro();
 
 // Adicionar código js correspondente à página do tabuleiro
 const novoScript = document.createElement("script");
