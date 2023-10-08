@@ -118,6 +118,21 @@ const obterDimensoesTabuleiro = (divTabuleiro) => {
   return dimensoes.map(indice => parseInt(indice) + 1);
 }
 
+/**
+ * Esta função serve para contar o número de aparições de um caractere 'char' em uma string 'param0' passada como parâmetro.
+ * @param {String} param0 - String que será percorrida.
+ * @param {String} char - Caractere de interesse que será procurado na string.
+ * @returns {Number} - Retorna o número de vezes que o caractere de interesse aparece na string.
+ */
+const contarCharStr = ([x, ...xs], char) => {
+  const contarAux = ([x, ...xs], char, acc = 0) => {
+    if (xs.length === 0) return (x === char) ? acc += 1 : acc
+    else return (x === char) ? contarAux(xs, char, acc += 1) : contarAux(xs, char, acc)
+  }
+  if (typeof x == 'undefined') return 'String vazia.'
+  else return contarAux([x, ...xs], char)
+}
+
 const ativarJogadores = (listaJogadores) => (sequenciaTurnos) => {
   const simboloTurno = sequenciaTurnos[0]
   const containerJogadores = Array.from(document.querySelectorAll(".jogador"));
@@ -137,4 +152,4 @@ const ativarJogadores = (listaJogadores) => (sequenciaTurnos) => {
   })
 }
 
-export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, obterDimensoesTabuleiro, ativarJogadores }
+export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, obterDimensoesTabuleiro, contarCharStr, ativarJogadores }
