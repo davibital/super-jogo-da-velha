@@ -49,7 +49,7 @@ aside.container h1 {
 }
 
 .jogador.ativo {
-  animation: animacao-jogador-ativo .5s alternate infinite;
+  animation: animacao-jogador-ativo 1s alternate-reverse infinite;
 }
 
 .nome {

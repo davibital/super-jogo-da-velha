@@ -23,6 +23,13 @@ const configurarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, for
     return;
   }
 
+  if (primeiroJogador.nome === segundoJogador.nome) {
+    alert ('O nome do primeiro jogador não pode ser igual ao do segundo jogador!')
+    formularioPrimeiroJogador.querySelector("#nome-jogador").value = '';
+    formularioSegundoJogador.querySelector("#nome-jogador").value = '';
+    return
+  }
+
   const dimensoesTabuleiro = formularioTabuleiro.querySelector("#dimensoes-tabuleiro").value;
 
   localStorage.clear();
