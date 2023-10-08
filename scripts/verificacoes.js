@@ -1,4 +1,4 @@
-import * as utils from './utils.js';
+import { transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais } from './utils.js';
 
 /**
  * Esta função serve para verificar as linhas do tabuleiro e retornar se existe alguma linha vencedora, ou seja, alguma linha completa com um único símbolo X ou O.
@@ -23,15 +23,15 @@ const verificarLinhas = ([...tabuleiro], coringa) => {
    * @returns Lista contendo os valores booleanos para cada linha, caso exista.
    */
   function linhaTemSimboloUnico([simbolo, ...linha], coringa) {
+    if (typeof simbolo != 'string' || simbolo == '')
+      return false
     if (linha.length == 0)
       return true
-    if (simbolo == '')
-      return false
     if (simbolo == coringa)
       return linhaTemSimboloUnico(linha, coringa)
     else {
       const proximoSimbolo = linha[0]
-      if (simbolo != proximoSimbolo)
+      if (simbolo != proximoSimbolo && proximoSimbolo != coringa)
         return false
       else
         return linhaTemSimboloUnico(linha, coringa)
@@ -46,7 +46,7 @@ const verificarLinhas = ([...tabuleiro], coringa) => {
  * @returns {Boolean} - Valor booleano que indica se existe alguma coluna vencedora, ou seja, uma coluna com todos os elementos iguais, desconsiderando o elemento vazio.
  */
 const verificarColunas = (tabuleiro, coringa) => {
-  const tabuleiroTransposto = utils.transpostaMatriz(tabuleiro)
+  const tabuleiroTransposto = transpostaMatriz(tabuleiro)
   return verificarLinhas(tabuleiroTransposto, coringa)
 }
 
@@ -60,8 +60,8 @@ const verificarDiagonais = (tabuleiro) => {
   const tamanhoTabuleiro = tabuleiro.length
   // Esta função serve para verificar a diagonal principal do tabuleiro e retornar se a diagonal principal é "vencedora".
   const verificarDiagonalPrincipal = (tabuleiro) => {
-    const strTracoPrincipal = utils.tracoPrincipal(tabuleiro) // Calculamos o traço da matriz (tabuleiro)
-    return (strTracoPrincipal.length === tamanhoTabuleiro) && utils.verificarCaracteresIguais(strTracoPrincipal) 
+    const strTracoPrincipal = tracoPrincipal(tabuleiro) // Calculamos o traço da matriz (tabuleiro)
+    return (strTracoPrincipal.length === tamanhoTabuleiro) && verificarCaracteresIguais(strTracoPrincipal) 
     /* 
     Verificamos se todos os quadrados estão preenchidos a partir da comparação com o tamanhoTabuleiro (length.tabuleiro).
     E depois com a função verificarCaracteresIguais() verificamos se todos os caracteres são iguais. 
@@ -71,8 +71,8 @@ const verificarDiagonais = (tabuleiro) => {
 
   // Esta função serve para verificar a diagonal secundária do tabuleiro e retornar se a diagonal secundária é "vencedora".
   const verificarDiagonalSecundaria = (tabuleiro) => {
-    const strTracoSecundario = utils.tracoSecundario(tabuleiro) // Calculamos o traço "secundário" da matriz (tabuleiro)
-    return (strTracoSecundario.length === tamanhoTabuleiro) && utils.verificarCaracteresIguais(strTracoSecundario)
+    const strTracoSecundario = tracoSecundario(tabuleiro) // Calculamos o traço "secundário" da matriz (tabuleiro)
+    return (strTracoSecundario.length === tamanhoTabuleiro) && verificarCaracteresIguais(strTracoSecundario)
     // A lógica do return aqui é a mesma da função anterior.
   }
 
