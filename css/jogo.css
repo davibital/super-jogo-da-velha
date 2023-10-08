@@ -5,10 +5,10 @@
 
 #conteudo-jogo {
   background-color: black;
-  
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 4px solid black;
 }
 
 #container-primeiro-jogador, #container-segundo-jogador {
@@ -71,8 +71,8 @@ aside.container h1 {
 .grid-jogo-pequeno {
   display: grid;
   grid-template-columns: repeat(3, auto);
-  grid-template-columns: 45px 45px 45px;
-  grid-template-rows: 45px 45px 45px;
+  grid-template-columns: 52px 52px 52px;
+  grid-template-rows: 52px 52px 52px;
   gap: 1px;
 
   position: relative;
