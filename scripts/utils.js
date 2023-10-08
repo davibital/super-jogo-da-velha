@@ -156,4 +156,4 @@ const ativarJogadores = (listaJogadores) => (funcaoSorteio) => (sequenciaTurnos)
 }
 
 
-export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, removerAcaoBotoes, obterDimensoesTabuleiro, contarCharStr, removerCharStr, ativarJogadores }
+export { criarTabuleiro, transpostaMatriz, tracoPrincipal, tracoSecundario, verificarCaracteresIguais, desaninhar, aninhar, obterDimensoesTabuleiro, contarCharStr, removerCharStr, ativarJogadores }
