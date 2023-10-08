@@ -1,5 +1,4 @@
 import { embaralharMatriz, randint } from './random.js';
-import { atualizarTabuleiroHTML } from './actions.js';
 import { tabuleiroGrande, jogadores, sequenciaTurnos } from './main.js';
 
 const embaralharJogoPequeno = (linhaJogoPequeno, colunaJogoPequeno) => {
@@ -7,7 +6,6 @@ const embaralharJogoPequeno = (linhaJogoPequeno, colunaJogoPequeno) => {
   const jogoPequenoJSEmbaralhado = embaralharMatriz(jogoPequenoJS)
 
   tabuleiroGrande[linhaJogoPequeno][colunaJogoPequeno] = jogoPequenoJSEmbaralhado
-  //atualizarTabuleiroHTML()
 }
 
 const embaralharJogoPequenoAleatorio = () => {
@@ -27,4 +25,10 @@ const embaralharTabuleiro = () => {
   })
 }
 
-export { embaralharJogoPequeno, embaralharJogoPequenoAleatorio, embaralharTabuleiro }
+const listaPoderes = [
+    embaralharJogoPequeno,
+    embaralharJogoPequenoAleatorio,
+    embaralharTabuleiro
+]
+
+export { listaPoderes }
