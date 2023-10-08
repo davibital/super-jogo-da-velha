@@ -45,6 +45,8 @@ const gerarSequenciaTurnos = (listaJogadores) => {
     const sequenciaSimbolos = listaEmbaralhada.map(jogador => jogador.simbolo);
   
     return sequenciaSimbolos;
-  }
+}
 
-export { embaralharLista, embaralharMatriz, gerarSequenciaTurnos }
+const randint = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
+
+export { embaralharLista, embaralharMatriz, gerarSequenciaTurnos, randint }
