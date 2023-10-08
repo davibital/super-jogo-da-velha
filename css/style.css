@@ -1,3 +1,5 @@
+/* Tela Inicial */
+
 * {
   font-family: 'Chakra Petch', sans-serif;
 }
@@ -13,7 +15,9 @@ html, body {
 }
 
 body {
-  background-color: rgb(32, 63, 7);
+  background-color: rgb(177, 0, 0);
+  background-image: url('../imagens/painel2-removebg.png'); 
+  background-size: 50%;
 
   min-width: 850px;
   min-height: 600px;
@@ -26,8 +30,6 @@ body {
 
 h1 {
   font-size: 3.2rem;
-  background-color: rgb(32, 63, 7);
-
 }
 
 p {
@@ -36,10 +38,19 @@ p {
 
 header h1 {
   color: white;
+  font-size: 40px;
   font-weight: bold;
   text-shadow: 3px 4px rgb(12, 1, 1);
 }
 
+/*Formulário para Inciar o Jogo*/
+
+#configuracoes-jogo {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 5px solid black;
+}
 
 #primeiro-jogador {
   text-align: center;
@@ -48,6 +59,7 @@ header h1 {
 #segundo-jogador {
   text-align: center;
 }
+
 
 #tabuleiro{
   text-align: center;
@@ -95,10 +107,7 @@ label[for="dimensoes-tabuleiro"] {
   height: 90%;
   display: flex;
   justify-content: center;
-  border: 5px solid transparent;
-  border-image: linear-gradient(180deg, black,#00ff00,#0099ff,#001aff,#a200ff,#ff0055,#ff0000,#ffff00,#00ff00,#0099ff,#001aff,black);
-  border-image-slice: 1;
-
+  border: 10px solid black;
 }
 
 
@@ -131,7 +140,7 @@ label[for="dimensoes-tabuleiro"] {
   font-weight: bold;
 
   color: white;
-  background-color: rgb(32, 63, 7);
+  background-color: rgb(177, 0, 0);
   padding: 1.5rem 3rem;
 
   border-radius: 3rem;
