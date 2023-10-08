@@ -1,4 +1,4 @@
-import { criarTabuleiro, removerAcaoBotoes, obterDimensoesTabuleiro } from './utils.js'
+import { criarTabuleiro, removerAcaoBotoes, obterDimensoesTabuleiro, ativarJogadores } from './utils.js'
 import { sortearPoder } from './poderes.js';
 import { verificarVencedor } from './verificacoes.js'
 import { gerarSequenciaTurnos } from './random.js';
@@ -24,9 +24,11 @@ const jogadores = listaJogadores.map(elemento => {
   return { nome: nome, simbolo: simbolo };
 });
 
+const ativarJogadorDaRodada = ativarJogadores(jogadores);
+
 // Lista com a determinada sequência dos símbolos de quem joga primeiro e por último. (Gerada aleatoriamente) 
 const sequenciaTurnos = gerarSequenciaTurnos(jogadores);
-console.log("Esta é a sequência do jogo: ", sequenciaTurnos);
+ativarJogadorDaRodada(sequenciaTurnos[0]);
 
 // Esta função permite que o símbolo seja ilustrado sobreposto ao Jogo da Velha pequeno
 const vencedorNoTabuleiroMenor = (elementoDoTabuleiroMenor, SimboloVencedor) => {
@@ -50,16 +52,33 @@ const manipularVitoriaTabuleiroPequeno = (elementoPai, linhaGrande, colunaGrande
   vencedorNoTabuleiroMenor(elementoPai, turnoAtual);
 }
 
-// Função para verificar o estado geral do jogo, verificando se alguém já venceu a partida
-const verificarEstadoJogo = (turnoAtual = sequenciaTurnos[0]) => {
+/**
+ * Função para verificar o estado geral do jogo, verificando se alguém já venceu a partida.
+ * @returns {Boolean} Valor booleano que indica se houve vencedor ou não.
+ */
+const temVencedor = () => {
   const vencedor = verificarVencedor(tabuleiroGrande);
   if (vencedor) {
-    // Remove ação de todos os botões do jogo, finalizando a partida. 
+    // Remove ação de todos os botões do jogo, finalizando a partida.
     removerAcaoBotoes(Array.from(document.querySelectorAll("button")), clicarBotao)
-    
-    console.log(`"${turnoAtual}" VENCEU O JOGO!`); // alert(`${turnoAtual} VENCEU O JOGO!`);
+
+    const ultimoJogador = document.querySelector(".jogador.ativo")
+    console.log(ultimoJogador);
+    const simboloUltimoJogador = ultimoJogador.querySelector(".simbolo").innerHTML;
+
+    const jogadorVencedor = jogadores.reduce((jogadorVecedor, jogadorAtual) => {
+      if (jogadorAtual.simbolo == simboloUltimoJogador)
+        jogadorVecedor = jogadorAtual;
+      
+      return jogadorVecedor;
+    }, '');
+
+    console.log(`"${jogadorVencedor.nome}" VENCEU O JOGO!`); // alert(`${turnoAtual} VENCEU O JOGO!`);
     // Aqui podemos adicionar código para encerrar o jogo, se assim desejar
+    return true;
   }
+
+  return false;
 }
 
 // Esta função é responsável pelo evento de clique de um botão. 
@@ -113,11 +132,9 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
     if (!existePosicaoDisponivel) manipularVitoriaTabuleiroPequeno(elementoPai, linhaGrande, colunaGrande, "?");
   }
   
-  // Verifica o estado geral da partida
-  verificarEstadoJogo()
-  
-  // Passa a vez após a jogada
-  passarVez();
+  // Verifica o estado geral da partida e passa a vez caso não exista um vencedor
+  if (!temVencedor())
+    passarVez(sequenciaTurnos, jogadores);
 }
 
 const clicarBotao = clicarBotaoGeral(sequenciaTurnos);
@@ -132,4 +149,4 @@ botoes.map(botao => botao.addEventListener("click", clicarBotao));
 const botoesSorteio = Array.from(document.querySelectorAll(".botao-sorteio"));
 botoesSorteio.map(botao => botao.addEventListener("click", sortearPoderJogadores));
 
-export { tabuleiroGrande, jogadores, sequenciaTurnos }
+export { tabuleiroGrande, ativarJogadorDaRodada }
