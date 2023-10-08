@@ -3,11 +3,12 @@ import * as utils from './utils.js';
 /**
  * Esta função serve para verificar as linhas do tabuleiro e retornar se existe alguma linha vencedora, ou seja, alguma linha completa com um único símbolo X ou O.
  * @param {Array} tabuleiro - Matriz de duas dimensões, correspondente ao tabuleiro do jogo.
+ * @param {String} coringa - Símbolo que corresponde ao símbolo coringa do jogo.
  * @returns {Boolean} - Valor booleano que indica se existe alguma linha vencedora, ou seja, uma linha com todos os elementos iguais, desconsiderando o elemento vazio.
  */
-const verificarLinhas = ([...tabuleiro]) => {
+const verificarLinhas = ([...tabuleiro], coringa) => {
   const existeLinhaGanhadora = tabuleiro.reduce((estadoLinha, linha) => {
-    if (linhaTemSimboloUnico(linha)) {
+    if (linhaTemSimboloUnico(linha, coringa)) {
       estadoLinha = true
     }
     return estadoLinha
@@ -18,19 +19,22 @@ const verificarLinhas = ([...tabuleiro]) => {
   /**
    * Esta função serve para verificar se a linha possui algum símbolo único.
    * @param {Array} linha - Lista contendo os símbolos jogados na linha.
+   * @param {String} coringa - Símbolo que corresponde ao símbolo coringa do jogo.
    * @returns Lista contendo os valores booleanos para cada linha, caso exista.
    */
-  function linhaTemSimboloUnico([simbolo, ...linha]) {
+  function linhaTemSimboloUnico([simbolo, ...linha], coringa) {
     if (linha.length == 0)
       return true
     if (simbolo == '')
       return false
+    if (simbolo == coringa)
+      return linhaTemSimboloUnico(linha, coringa)
     else {
       const proximoSimbolo = linha[0]
       if (simbolo != proximoSimbolo)
         return false
       else
-        return linhaTemSimboloUnico(linha)
+        return linhaTemSimboloUnico(linha, coringa)
     }
   }
 }
@@ -38,11 +42,12 @@ const verificarLinhas = ([...tabuleiro]) => {
  * Esta função serve para verificar as colunas do tabuleiro e retornar se existe alguma coluna vencedora.
  * Isso é feito a partir do reuso da função verificarLinhas() que só é possível pois fazemos antes a transposição do tabuleiro (transformar as colunas em linhas).
  * @param {Array} tabuleiro - Matriz de duas dimensões, correspondente ao tabuleiro do jogo.
+ * @param {String} coringa - Símbolo que corresponde ao símbolo coringa do jogo.
  * @returns {Boolean} - Valor booleano que indica se existe alguma coluna vencedora, ou seja, uma coluna com todos os elementos iguais, desconsiderando o elemento vazio.
  */
-const verificarColunas = (tabuleiro) => {
+const verificarColunas = (tabuleiro, coringa) => {
   const tabuleiroTransposto = utils.transpostaMatriz(tabuleiro)
-  return verificarLinhas(tabuleiroTransposto)
+  return verificarLinhas(tabuleiroTransposto, coringa)
 }
 
 /**
@@ -80,8 +85,9 @@ const verificarDiagonais = (tabuleiro) => {
  * A função verificarVencedor() é uma composição, a partir de disjunções (||), das funções anteriores 
  * que verificam, individualmente, linhas, colunas e diagonais.
  * @param {Array} tabuleiro - Matriz de duas dimensões, correspondente ao tabuleiro do jogo.
+ * @param {String} coringa - Símbolo que corresponde ao símbolo coringa do jogo.
  * @returns {Boolean} - Valor booleano que indica se há vencedor.
  */
-const verificarVencedor = (tabuleiro) => verificarLinhas(tabuleiro) || verificarColunas(tabuleiro) || verificarDiagonais(tabuleiro)
+const verificarVencedor = (tabuleiro, coringa = "?") => verificarLinhas(tabuleiro, coringa) || verificarColunas(tabuleiro, coringa) || verificarDiagonais(tabuleiro)
 
 export { verificarVencedor }

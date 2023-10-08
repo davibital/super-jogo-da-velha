@@ -1,7 +1,8 @@
 import { criarTabuleiro, removerAcaoBotoes, obterDimensoesTabuleiro } from './utils.js'
+import { sortearPoder } from './poderes.js';
 import { verificarVencedor } from './verificacoes.js'
 import { gerarSequenciaTurnos } from './random.js';
-import * as actions from './actions.js';
+import { passarVez } from './actions.js';
 
 // Obtendo as dimensões do tabuleiro, passando como parâmetro o elemento HTML que é uma div que possui a classe "grid-jogo"
 const dimensoes = obterDimensoesTabuleiro(document.querySelector("div>.grid-jogo"));
@@ -53,7 +54,8 @@ const verificarEstadoJogo = (turnoAtual = sequenciaTurnos[0]) => {
 }
 
 // Esta função é responsável pelo evento de clique de um botão. 
-const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
+const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
+  const turnoAtual = sequenciaTurnos[0];
   // Obtém o botão clicado
   const botao = eventoClique.srcElement;
 
@@ -88,16 +90,33 @@ const clicarBotao = (eventoClique, turnoAtual = sequenciaTurnos[0]) => {
   // Verifica se há um vencedor no tabuleiro pequeno
   if (verificarVencedor(tabuleiroPequeno)) {
     manipularVitoriaTabuleiroPequeno(elementoPai, linhaGrande, colunaGrande);
+  } else {
+    const existePosicaoDisponivel = tabuleiroPequeno.reduce((acc, linha) => linha.reduce((acc, elemento) => {
+      if (elemento == '')
+        acc = true;
+      return acc;
+    }, false), false);
+    
+    if (!existePosicaoDisponivel) manipularVitoriaTabuleiroPequeno(elementoPai, linhaGrande, colunaGrande, "?");
   }
   
   // Verifica o estado geral da partida
   verificarEstadoJogo()
   
   // Passa a vez após a jogada
-  actions.passarVez();
+  passarVez();
 }
 
+const clicarBotao = clicarBotaoGeral(sequenciaTurnos);
+
+const sortearPoderJogadores = sortearPoder(jogadores);
+
 // Adicionando o evento de clique a todos os botões
-const botoes = Array.from(document.querySelectorAll("button")).map(botao => botao.addEventListener("click", clicarBotao))
+const botoes = Array.from(document.querySelectorAll("#conteudo-jogo button"));
+botoes.map(botao => botao.addEventListener("click", clicarBotao));
+
+// Adicionando o evento de sorteio aos botões de sorteio
+const botoesSorteio = Array.from(document.querySelectorAll(".botao-sorteio"));
+botoesSorteio.map(botao => botao.addEventListener("click", sortearPoderJogadores));
 
 export { tabuleiroGrande, jogadores, sequenciaTurnos }
