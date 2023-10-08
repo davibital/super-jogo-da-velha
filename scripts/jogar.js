@@ -1,6 +1,16 @@
 import { criarTabuleiro } from './utils.js'
 
 /**
+ * Função para remover a ação de clique dos botões.
+ * @param {Function} funcao - Função que deseja retirar dos botões.
+ */
+const removerAcaoBotoes = (funcao) => {
+  const botoes = Array.from(document.querySelectorAll("button"));
+
+  botoes.map(botao => botao.removeEventListener("click", funcao));
+}
+
+/**
  * Função para retornar à página inicial.
  */
 const voltarAoInicio = (evento) => {
@@ -140,3 +150,5 @@ const novoScript = document.createElement("script");
 novoScript.setAttribute("src", "../scripts/main.js");
 novoScript.setAttribute("type", "module");
 document.body.appendChild(novoScript);
+
+export { removerAcaoBotoes };

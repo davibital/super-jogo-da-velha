@@ -3,6 +3,7 @@ import { sortearPoder, listaPoderes } from './poderes.js';
 import { verificarVencedor } from './verificacoes.js'
 import { gerarSequenciaTurnos } from './random.js';
 import { passarVez } from './actions.js';
+import { removerAcaoBotoes } from './jogar.js';
 
 // Obtendo as dimensões do tabuleiro, passando como parâmetro o elemento HTML que é uma div que possui a classe "grid-jogo"
 const dimensoes = obterDimensoesTabuleiro(document.querySelector("div>.grid-jogo"));
@@ -110,7 +111,7 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
   if (!jogadorAtual.poder(turnoAtual)(tabuleiroPequeno, linhaPequeno, colunaPequeno))
     return;
   
-  // Retorna à ação padrão do jogador, que é a de inserir o símbolo em uma casa vazia
+  // Retorna à ação padrão do jogador, que é a de inserir o símbolo em uma casa vazia.
   jogadorAtual.poder = listaPoderes[0](sequenciaTurnos);
   // Atualiza a interface
   botao.innerHTML = turnoAtual;
@@ -135,6 +136,13 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
   // Verifica o estado geral da partida e passa a vez caso não exista um vencedor
   if (!temVencedor()) 
     passarVez(sequenciaTurnos);
+  else {
+    removerAcaoBotoes(clicarBotao);
+    removerAcaoBotoes(sortearPoderJogadores);
+
+    const jogadorAtivo = document.querySelector(".ativo");
+    jogadorAtivo.classList.remove("ativo");
+  }
 }
 
 const clicarBotao = clicarBotaoGeral(sequenciaTurnos);
