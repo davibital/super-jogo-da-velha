@@ -22,8 +22,8 @@ const embaralharJogoPequeno = (linhaJogoPequeno, colunaJogoPequeno) => {
  */
 
 const embaralharJogoPequenoAleatorio = () => {
-  const indexLinhaAleatorio = randint(0, tabuleiroGrande.length - 1)
-  const indexColunaAleatorio = randint(0, tabuleiroGrande.length - 1)
+  const indexLinhaAleatorio = random.randint(0, tabuleiroGrande.length - 1)
+  const indexColunaAleatorio = random.randint(0, tabuleiroGrande.length - 1)
 
   const jogoSorteado = tabuleiroGrande[indexLinhaAleatorio][indexColunaAleatorio]
   if (Array.isArray(jogoSorteado)) {
