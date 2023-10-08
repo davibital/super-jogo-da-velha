@@ -87,6 +87,19 @@ label[for="dimensoes-tabuleiro"] {
 
 }
 
+#botao-iniciar {
+  width: 450px;
+  height: 50px;
+  font-size: 20px; 
+  background-color: rgb(32, 63, 7);
+  transition: transform 200ms ease-in-out;
+}
+
+#botao-iniciar:hover {
+  transform: scale(1.05);
+}
+
+
 
 #container-botoes-interface {
   display: flex;
