@@ -14,9 +14,10 @@ html, body {
   overflow: hidden;
 }
 
+ /* A parte da pagina que fica atrás do painel principal do jogo */
 body {
-  background: rgb(177, 0, 0) url('../imagens/painel2-removebg.png');
-  background-size: 50%;
+  background: rgb(177, 0, 0) url('../imagens/painel2-removebg.png'); /* Deixa a página em um tom vermelho e integou-se uma imagem nela. */
+  background-size: 50%; 
 
   min-width: 850px;
   min-height: 600px;
@@ -31,6 +32,7 @@ p {
   font-size: 1.6rem;
 }
 
+/* Trata-se da parte do Título do jogo.*/
 header h1 {
   color: white;
   font-size: 40px;
@@ -49,14 +51,14 @@ header h1 {
 }
 
 #primeiro-jogador {
-  text-align: center;
+  text-align: center; /* Deixa o campo do formulário do primeiro-jogador no centro da página */
 }
 
 #segundo-jogador {
-  text-align: center;
+  text-align: center; /* Deixa o campo do formulário do segundo-jogador no centro da página.*/
 }
 
-#container-botao-iniciar {
+#container-botao-iniciar { /* Refere-se a parte da localização que o botão inicial ocupa.*/
   padding-top: 5%;
   width: 100%;
   justify-content: center;
@@ -64,7 +66,7 @@ header h1 {
   display: flex;
 }
 
-#botao-iniciar {
+#botao-iniciar { /* Refere-se ao botão inicial. */
   font-size: 20px; 
   transition: transform 200ms ease-in-out;
   color: black;
@@ -72,47 +74,47 @@ header h1 {
   cursor: pointer;
 }
   
-#botao-iniciar:hover {
-  transform: scale(1.05);
+#botao-iniciar:hover { 
+  transform: scale(1.05); /* Esta configuração permite criar um efeito que aumenta o botão ao passar o mouse por cima */
 }
 
 #tabuleiro{
-  text-align: center;
+  text-align: center; /* Permite que o nome "Tabuleiro" fique no centro do painel.*/
 }
 
 
 #nome-jogador {
-  font-size: 16px; 
+  font-size: 16px; /* Tamanho do campo de preenchimento do formulário referente ao nome. */
 }
 
 
-label[for="nome-jogador"] {
-  font-size: 16px; 
-  background-color: white;
+label[for="nome-jogador"] { /* Refere-se a nomenclatura "nome" do formulário */
+  font-size: 16px; /* Tamanho da nomenclatura */
+  background-color: white; /* Cor que destaca-se como uma cor de fundo. */
 }
 
-#simbolo-jogador {
-  font-size: 16px;
+#simbolo-jogador { 
+  font-size: 16px;/* Tamanho do campo de preenchimento do formulário referente aos simbolos.  */
 }
 
-label[for="simbolo-jogador"] {
-  font-size: 16px;
-  background-color: white;
+label[for="simbolo-jogador"] { /* Refere-se a nomeclatura "simbolo" do formulário */
+  font-size: 16px; /* Tamanho */
+  background-color: white; /* Cor que se destaca como uma cor no fundo */
 
 }
 
 #dimensoes-tabuleiro {
-  font-size: 16px;
+  font-size: 16px; /* Refere-se ao tamanho do campo da "dimensão" */
 }
 
-label[for="dimensoes-tabuleiro"] {
-  font-size: 16px;
-  background-color: white;
+label[for="dimensoes-tabuleiro"] { /* Refere-se ao tamanho do nomenclatura "dimensão". */
+  font-size: 16px; /* Tamanho */
+  background-color: white; /* Cor de fundo. */
 }
 
-#painel-jogo {
+#painel-jogo { /* Refere-se ao painel do jogo. */
   padding: 1rem;
-  background-image: url('../imagens/painel2.png'); 
+  background-image: url('../imagens/painel2.png'); /* Adiciona a imagem do painel principal */
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
