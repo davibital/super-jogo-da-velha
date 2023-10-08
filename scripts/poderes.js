@@ -1,5 +1,55 @@
-import { passarVez } from "./actions.js";
+import { passarVez, atualizarTabuleiroHTML } from "./actions.js";
 import * as utils from './utils.js';
+import { tabuleiroGrande } from "./main.js"; 
+import * as random from './random.js';
+
+/**
+ * Esta função serve para embaralhar um Jogo Pequeno.
+ * Ela é uma função de apoio para as funções definidas adiante embaralharJogoPequenoAleatorio() e embaralharTabuleiro()
+ * @param {*} linhaJogoPequeno - Representa a linha do Jogo Pequeno que será embaralhado.
+ * @param {*} colunaJogoPequeno - Representa a coluna do Jogo Pequeno que será embaralhado.
+ */
+const embaralharJogoPequeno = (linhaJogoPequeno, colunaJogoPequeno) => {
+  const jogoPequenoJS = tabuleiroGrande[linhaJogoPequeno][colunaJogoPequeno]
+  const jogoPequenoJSEmbaralhado = random.embaralharMatriz(jogoPequenoJS)
+
+  tabuleiroGrande[linhaJogoPequeno][colunaJogoPequeno] = jogoPequenoJSEmbaralhado
+}
+
+/**
+ * Esta função escolhe um Jogo Pequeno aleatório e tenta embaralhar ele. Caso esse jogo já tenha sido finalidado, ou seja,
+ * algum jogador ganhou ou houve empate, um alerta é imprimido falando que dessa vez o sorteado não estava disponível e você perde a vez.
+ */
+
+const embaralharJogoPequenoAleatorio = () => {
+  const indexLinhaAleatorio = randint(0, tabuleiroGrande.length - 1)
+  const indexColunaAleatorio = randint(0, tabuleiroGrande.length - 1)
+
+  const jogoSorteado = tabuleiroGrande[indexLinhaAleatorio][indexColunaAleatorio]
+  if (Array.isArray(jogoSorteado)) {
+    embaralharJogoPequeno(indexLinhaAleatorio, indexColunaAleatorio)
+    atualizarTabuleiroHTML()
+  }
+  else return embaralharJogoPequenoAleatorio()
+}
+
+/**
+ * Esta função embaralha cada jogo pequeno do tabuleiro totalmente. O único critério é que um jogo finalizado não é alterado.
+ * 
+ */
+const embaralharTabuleiro = () => {
+  alert("O tabuleiro foi totalmente embaralhado! Será que isso foi bom ou ruim? Veremos!");
+
+  tabuleiroGrande.map((linhaGrande, indexLinhaJogo) => {
+    linhaGrande.map((jogoPequeno, indexColunaJogo) => {
+      if (Array.isArray(jogoPequeno)) return embaralharJogoPequeno(indexLinhaJogo, indexColunaJogo)
+    })
+  })
+
+  atualizarTabuleiroHTML()
+
+  console.log(tabuleiroGrande[0][0])
+}
 
 /**
  * Função para inserir o símbolo em alguma casa que esteja desocupada.
@@ -72,8 +122,9 @@ const criarListaPoderes = (poderes, probabilidade) => {
   }
 }
 
-const poderes = [inserirSimbolo, alternarSimbolo]
-const listaPoderes = criarListaPoderes(poderes, 50)
+//const poderes = [inserirSimbolo, alternarSimbolo]
+const poderes = [inserirSimbolo, embaralharTabuleiro]
+const listaPoderes = criarListaPoderes(poderes, 100)
 
 /**
  * Função para sortear o poder do jogador e atribuir o poder a ele.
