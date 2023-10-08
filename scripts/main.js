@@ -2,7 +2,7 @@ import { criarTabuleiro,  obterDimensoesTabuleiro, ativarJogadores } from './uti
 import { sortearPoder, listaPoderes } from './poderes.js';
 import { verificarVencedor } from './verificacoes.js'
 import { gerarSequenciaTurnos } from './random.js';
-import { passarVez } from './actions.js';
+import { atualizarTabuleiroHTML, passarVez } from './actions.js';
 import { removerAcaoBotoes } from './jogar.js';
 
 // Obtendo as dimensões do tabuleiro, passando como parâmetro o elemento HTML que é uma div que possui a classe "grid-jogo"
@@ -114,7 +114,7 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
   // Retorna à ação padrão do jogador, que é a de inserir o símbolo em uma casa vazia.
   jogadorAtual.poder = listaPoderes[0](sequenciaTurnos);
   // Atualiza a interface
-  botao.innerHTML = turnoAtual;
+  atualizarTabuleiroHTML();
   
   // Verifica se há um vencedor no tabuleiro pequeno
   if (verificarVencedor(tabuleiroPequeno)) {

@@ -21,7 +21,7 @@ const atualizarTabuleiroHTML = () => {
                         
                         // Selecionando os elementos do HTML 
                         const jogoPequeno = document.getElementById(idJogoPequeno)
-                        const botaoHTML = jogoPequeno.getElementsByClassName(classBotao)
+                        const botaoHTML = jogoPequeno.getElementsByClassName(classBotao)[0]
                         
                         // Fazendo o match entre o conteúdo presente na lista do Javascript e o HTML (interface)
                         botaoHTML.innerHTML = botao
