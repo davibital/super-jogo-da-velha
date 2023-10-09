@@ -23,28 +23,15 @@ const verificarLinhas = ([...tabuleiro], coringa) => {
    * @param {String} simboloJogador - Símbolo que corresponde ao símbolo de um dos jogadores, considerando o primeiro que for encontrado na linha.
    * @returns Lista contendo os valores booleanos para cada linha, caso exista.
    */
-  function linhaTemSimboloUnico([simbolo, ...linha], coringa, simboloJogador = '') {
-    // Atribuição do símbolo do jogador, essa abordagem serve para impedir que uma linha ['X', coringa, 'O'] seja considerada vencedora. Para isso, é armazenado o símbolo de um dos jogadores, no caso é o primeiro encontrado (X), para caso um coringa esteja entre eles, seja feita uma comparação para ver se o símbolo é igual ao outro que foi jogado.
-    if (simboloJogador == '' || simboloJogador == coringa)
-      simboloJogador = simbolo;
+  function linhaTemSimboloUnico(linha, coringa) {
+    const strLinha = linha.reduce((acc, x) => acc + x, '')
+    const tamanhoTabuleiro = linha.length
     
-    if (simbolo != coringa && simbolo != simboloJogador) return false;
-    
-    // Verificação caso o símbolo seja um tabuleiro pequeno, no caso uma matriz de duas dimensões, ou seja um elemento vazio.
-    if (typeof simbolo != 'string' || simbolo == '') return false;
-
-    // Caso base é a linha não ter mais nenhum símbolo e o símbolo atual ser igual ao outro símbolo da linha, desconsiderando o coringa.
-    if (linha.length == 0) return true;
-
-    if (simbolo == coringa)
-      return linhaTemSimboloUnico(linha, coringa, simboloJogador)
-
-    else {
-      const proximoSimbolo = linha[0];
-      if (simbolo != proximoSimbolo && proximoSimbolo != coringa) return false
-
-      else return linhaTemSimboloUnico(linha, coringa, simbolo)
-    }
+    const numeroSimbolosCoringas = contarCharStr(strLinha, coringa)
+    const strLinhaTratado = removerCharStr(strLinha, coringa) 
+    // A lógica do return aqui é a mesma da função anterior.
+    if (numeroSimbolosCoringas !== 3) return (strLinhaTratado.length === (tamanhoTabuleiro - numeroSimbolosCoringas)) && verificarCaracteresIguais(strLinhaTratado)
+    else return false
   }
 }
 /**
@@ -80,6 +67,7 @@ const verificarDiagonais = (tabuleiro, coringa) => {
     // Retirando esses símbolos do Traço calculado.
     const strTracoPrincipalTratado = removerCharStr(strTracoPrincipal, coringa)
     if (numeroSimbolosCoringas !== 3) return (strTracoPrincipalTratado.length === (tamanhoTabuleiro - numeroSimbolosCoringas)) && verificarCaracteresIguais(strTracoPrincipalTratado)
+    else return false
 
     /* 
     Verificamos se todos os quadrados estão preenchidos a partir da comparação com o tamanhoTabuleiro (length.tabuleiro).
@@ -101,6 +89,7 @@ const verificarDiagonais = (tabuleiro, coringa) => {
     const strTracoSecundarioTratado = removerCharStr(strTracoSecundario, coringa) 
     // A lógica do return aqui é a mesma da função anterior.
     if (numeroSimbolosCoringas !== 3) return (strTracoSecundarioTratado.length === (tamanhoTabuleiro - numeroSimbolosCoringas)) && verificarCaracteresIguais(strTracoSecundarioTratado)
+    else return false
   }
 
   return verificarDiagonalPrincipal(tabuleiro, coringa) || verificarDiagonalSecundaria(tabuleiro, coringa)
