@@ -26,6 +26,8 @@ Os jogadores têm como objetivo completar uma linha, ou coluna, ou diagonal do t
 
 [Link do vídeo de inspiração](https://vm.tiktok.com/ZMjAmBqS7/)
 
-[Link do github pages](https://davibital.github.io/super-jogo-da-velha/)
+[Link do vídeo explicativo (expositivo) do jogo](https://youtu.be/JrCbIF7srfc)
 
 [Link do site no Netlify](https://super-jogo-da-velha.netlify.app/)
+
+[Link do github pages](https://davibital.github.io/super-jogo-da-velha/)
