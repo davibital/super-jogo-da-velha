@@ -95,7 +95,7 @@ const verificarDiagonais = (tabuleiro, coringa) => {
   Esta função serve para verificar a diagonal secundária do tabuleiro e retornar se a diagonal secundária é "vencedora".
   Sua lógica é a mesma que a função anterior.
   */
-  const verificarDiagonalSecundaria = (tabuleiro) => {
+  const verificarDiagonalSecundaria = (tabuleiro, coringa) => {
     const strTracoSecundario = tracoSecundario(tabuleiro) // Calculamos o traço "secundário" da matriz (tabuleiro)
     const numeroSimbolosCoringas = contarCharStr(strTracoSecundario, coringa)
     const strTracoSecundarioTratado = removerCharStr(strTracoSecundario, coringa) 
@@ -103,7 +103,7 @@ const verificarDiagonais = (tabuleiro, coringa) => {
     if (numeroSimbolosCoringas !== 3) return (strTracoSecundarioTratado.length === (tamanhoTabuleiro - numeroSimbolosCoringas)) && verificarCaracteresIguais(strTracoSecundarioTratado)
   }
 
-  return verificarDiagonalPrincipal(tabuleiro) || verificarDiagonalSecundaria(tabuleiro)
+  return verificarDiagonalPrincipal(tabuleiro, coringa) || verificarDiagonalSecundaria(tabuleiro, coringa)
   // E, a partir da disjunção (||), é possível verificar se alguma diagonal é "vencedora".
 }
 
@@ -115,6 +115,6 @@ const verificarDiagonais = (tabuleiro, coringa) => {
  * @param {String} coringa - Símbolo que corresponde ao símbolo coringa do jogo.
  * @returns {Boolean} - Valor booleano que indica se há vencedor.
  */
-const verificarVencedor = (tabuleiro, coringa = "?") => verificarLinhas(tabuleiro, coringa) || verificarColunas(tabuleiro, coringa) || verificarDiagonais(tabuleiro)
+const verificarVencedor = (tabuleiro, coringa = "?") => verificarLinhas(tabuleiro, coringa) || verificarColunas(tabuleiro, coringa) || verificarDiagonais(tabuleiro, coringa)
 
 export { verificarVencedor }
