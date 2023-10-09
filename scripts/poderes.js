@@ -107,8 +107,6 @@ const alternarSimbolo = (sequenciaTurnos) => {
 const perderAVez = (sequenciaTurnos) => {
   alert("Infelizmente você perdeu a vez!");
   passarVez(sequenciaTurnos);
-
-  return false;
 }
 
 /**
@@ -127,7 +125,7 @@ const criarListaPoderes = (poderes, probabilidade) => {
 }
 
 const poderes = [inserirSimbolo, embaralharJogoPequenoClique, alternarSimbolo, embaralharTabuleiro]
-const listaPoderes = criarListaPoderes(poderes, 100)
+const listaPoderes = criarListaPoderes(poderes, 30)
 
 /**
  * Função para sortear o poder do jogador e atribuir o poder a ele.
@@ -157,8 +155,9 @@ const sortearPoder = (listaJogadores, sequenciaTurnos, poderes = listaPoderes) =
   // Reatribuição do poder do jogador caso tenha perdido a vez, retorna para a ação padrão.
   if (indicePoder >= 3)
     jogador.poder = poderes[0](sequenciaTurnos);
-
-  removerAcaoBotoes(sortearPoderJogadores);
+  // Removendo a ação do botão caso o poder não seja o de perder a vez
+  if (indicePoder <= 3)
+    removerAcaoBotoes(sortearPoderJogadores);
 }
 
 export { sortearPoder, listaPoderes };
