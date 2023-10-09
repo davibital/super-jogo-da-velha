@@ -56,7 +56,7 @@
 
   padding: 2rem;
 
-  animation: animacao-titulo-vitoria .5s alternate infinite;
+  animation: animacao-titulo-vitoria 1s alternate infinite;
 }
 
 aside.container {
