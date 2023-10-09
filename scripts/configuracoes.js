@@ -30,6 +30,23 @@ const configurarJogo = (formularioPrimeiroJogador, formularioSegundoJogador, for
     return
   }
 
+  if (primeiroJogador.nome === '' || segundoJogador.nome === '') {
+    alert('O nome não pode ser vazio!');
+    return;
+  }
+
+  if (primeiroJogador.simbolo === '' || segundoJogador.simbolo === '') {
+    alert('O símbolo não pode ser vazio!');
+    return;
+  }
+
+  if (primeiroJogador.simbolo === '?' || segundoJogador.simbolo === '?') {
+    alert('O símbolo selecionado é o símbolo coringa, escolha outro símbolo!');
+    formularioPrimeiroJogador.querySelector("#simbolo-jogador").value = '';
+    formularioSegundoJogador.querySelector("#simbolo-jogador").value = '';
+    return;
+  }
+
   const dimensoesTabuleiro = formularioTabuleiro.querySelector("#dimensoes-tabuleiro").value;
 
   localStorage.clear();
