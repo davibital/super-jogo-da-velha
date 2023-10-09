@@ -1,7 +1,8 @@
 import { passarVez, atualizarTabuleiroHTML } from "./actions.js";
 import * as utils from './utils.js';
-import { tabuleiroGrande } from "./main.js"; 
+import { sortearPoderJogadores, tabuleiroGrande } from "./main.js"; 
 import * as random from './random.js';
+import { removerAcaoBotoes } from "./jogar.js";
 
 /**
  * Esta função serve para embaralhar um Jogo Pequeno.
@@ -157,6 +158,8 @@ const sortearPoder = (listaJogadores, sequenciaTurnos, poderes = listaPoderes) =
   // Reatribuição do poder do jogador caso tenha perdido a vez, retorna para a ação padrão.
   if (indicePoder >= 3)
     jogador.poder = poderes[0](sequenciaTurnos);
+
+  removerAcaoBotoes(sortearPoderJogadores);
 }
 
 export { sortearPoder, listaPoderes };
