@@ -20,22 +20,25 @@ const embaralharJogoPequeno = (linhaJogoPequeno, colunaJogoPequeno) => {
  * Esta função escolhe um Jogo Pequeno aleatório e tenta embaralhar ele. Caso esse jogo já tenha sido finalidado, ou seja,
  * algum jogador ganhou ou houve empate, um alerta é imprimido falando que dessa vez o sorteado não estava disponível e você perde a vez.
  */
+const embaralharJogoPequenoClique = () => {
+  alert("Você ganhou a função de embaralhar um jogo pequeno!");
+  const embaralharAux = (simbolo) => (tabuleiro, linha, coluna) => (elementoPai) => {
+    tabuleiro = random.embaralharMatriz(tabuleiro)
+    
+    // Obtém as coordenadas do Jogo da Velha pequeno onde a jogada foi efetuada.
+    const linhaGrande = elementoPai.id[0];
+    const colunaGrande = elementoPai.id[1];
+    
+    tabuleiroGrande[linhaGrande][colunaGrande] = tabuleiro
 
-const embaralharJogoPequenoAleatorio = () => {
-  const indexLinhaAleatorio = random.randint(0, tabuleiroGrande.length - 1)
-  const indexColunaAleatorio = random.randint(0, tabuleiroGrande.length - 1)
-
-  const jogoSorteado = tabuleiroGrande[indexLinhaAleatorio][indexColunaAleatorio]
-  if (Array.isArray(jogoSorteado)) {
-    embaralharJogoPequeno(indexLinhaAleatorio, indexColunaAleatorio)
     atualizarTabuleiroHTML()
+    return true
   }
-  else return embaralharJogoPequenoAleatorio()
+  return embaralharAux
 }
 
 /**
  * Esta função embaralha cada jogo pequeno do tabuleiro totalmente. O único critério é que um jogo finalizado não é alterado.
- * 
  */
 const embaralharTabuleiro = () => {
   alert("O tabuleiro foi totalmente embaralhado! Será que isso foi bom ou ruim? Veremos!");
@@ -60,7 +63,7 @@ const embaralharTabuleiro = () => {
   * @param {Number} coluna - Índice da coluna do tabuleiro.
   * @returns {Boolean} Valor booleano para indicar se a ação foi bem sucedida ou não.
  */
-const inserirSimbolo = (sequenciaTurnos) => (simbolo) => (tabuleiro, linha, coluna) => {
+const inserirSimbolo = (sequenciaTurnos) => (simbolo) => (tabuleiro, linha, coluna) => () => {
   if (tabuleiro[linha][coluna] != '') return false
 
   tabuleiro[linha][coluna] = simbolo;
@@ -84,7 +87,7 @@ const alternarSimbolo = (sequenciaTurnos) => {
    * @param {Number} coluna - Índice da coluna do tabuleiro.
    * @returns {Boolean} Valor booleano para indicar se a ação foi bem sucedida ou não.
    */
-  const alternarSimboloAux = (simbolo) => (tabuleiro, linha, coluna) => {
+  const alternarSimboloAux = (simbolo) => (tabuleiro, linha, coluna) => () => {
     if (tabuleiro[linha][coluna] == simbolo) return false;
 
     tabuleiro[linha][coluna] = simbolo;
@@ -123,7 +126,7 @@ const criarListaPoderes = (poderes, probabilidade) => {
 }
 
 //const poderes = [inserirSimbolo, alternarSimbolo]
-const poderes = [inserirSimbolo, embaralharTabuleiro]
+const poderes = [inserirSimbolo, embaralharJogoPequenoClique, alternarSimbolo, embaralharTabuleiro]
 const listaPoderes = criarListaPoderes(poderes, 100)
 
 /**
@@ -147,7 +150,7 @@ const sortearPoder = (listaJogadores, sequenciaTurnos, poderes = listaPoderes) =
   listaJogadores[indiceJogador].poder = poderSorteado(sequenciaTurnos);
 
   // Reatribuição do poder do jogador caso tenha perdido a vez, retorna para a ação padrão.
-  if (indicePoder >= 2)
+  if (indicePoder >= 3)
     listaJogadores[indiceJogador].poder = poderes[0](sequenciaTurnos);
 }
 

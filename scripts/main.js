@@ -108,7 +108,7 @@ const clicarBotaoGeral = (sequenciaTurnos) => (eventoClique) => {
     return jogadorAtual;
   });
 
-  if (!jogadorAtual.poder(turnoAtual)(tabuleiroPequeno, linhaPequeno, colunaPequeno))
+  if (!jogadorAtual.poder(turnoAtual)(tabuleiroPequeno, linhaPequeno, colunaPequeno)(elementoPai))
     return;
   
   // Retorna à ação padrão do jogador, que é a de inserir o símbolo em uma casa vazia.
