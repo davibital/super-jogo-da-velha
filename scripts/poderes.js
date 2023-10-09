@@ -50,8 +50,6 @@ const embaralharTabuleiro = () => {
   })
 
   atualizarTabuleiroHTML()
-
-  console.log(tabuleiroGrande[0][0])
 }
 
 /**
