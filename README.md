@@ -23,3 +23,9 @@ Os jogadores têm a possibiliadade de sortear um poder para utilizar na rodada, 
 ## Objetivo
 
 Os jogadores têm como objetivo completar uma linha, ou coluna, ou diagonal do tabuleiro maior com o seu símbolo para assim se consagrar o grande vencedor!
+
+[Link do vídeo de inspiração](https://vm.tiktok.com/ZMjAmBqS7/)
+
+[Link do github pages](https://davibital.github.io/super-jogo-da-velha/)
+
+[Link do site no Netlify](https://super-jogo-da-velha.netlify.app/)
