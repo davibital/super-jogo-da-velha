@@ -29,6 +29,36 @@
   border: 2px solid black;
 }
 
+#jogo-finalizado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 2rem;
+
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: var(--cor-fundo-jogador);
+  backdrop-filter: var(--filtro-fundo-jogador);
+}
+
+#jogo-finalizado h1 {
+  font-size: 4.0rem;
+  color: white;
+  background-color: red;
+
+  border: 1px solid black;
+
+  border-radius: 1rem;
+
+  padding: 2rem;
+
+  animation: animacao-titulo-vitoria .5s alternate infinite;
+}
+
 aside.container {
   width: 100%;
 
@@ -107,5 +137,16 @@ aside.container h1 {
   } 
   to {
     background-color: rgb(177, 0, 0);
+  }
+}
+
+@keyframes animacao-titulo-vitoria {
+  from {
+    font-size: 4.0rem;
+    padding: 2rem;
+  }
+  to {
+    font-size: 4.8rem;
+    padding: 3.5rem;
   }
 }

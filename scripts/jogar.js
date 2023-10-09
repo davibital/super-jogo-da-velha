@@ -24,6 +24,30 @@ const voltarAoInicio = (evento) => {
 const reiniciar = (evento) => { window.location.reload() };
 
 /**
+ * Função para finalização da partida, apenas para mostrar para o usuário o ganhador.
+ * @param {String} ganhador 
+ */
+const partidaFinalizada = (ganhador) => {
+  // Obtendo a div de conteúdo do jogo
+  const conteudoJogo = document.getElementById("conteudo-jogo");
+  // Obtendo os botões de voltar e reiniciar
+  const botoesFinalizacao = Array.from(document.querySelectorAll("aside>button"));
+
+  conteudoJogo.innerHTML +=
+    `
+    <div id="jogo-finalizado">
+      <h1>Parabéns pela vitória, ${ganhador}! 🤩🎈🥳</h1>
+    </div>
+    `;
+  
+  // Adicionando os botões à nova div de finalização do jogo
+  botoesFinalizacao.map((botao) => {
+    const jogoFinalizado = conteudoJogo.querySelector("#jogo-finalizado");
+    jogoFinalizado.appendChild(botao);
+  });
+}
+
+/**
  * Função para preencher a página HTML com as informações dos jogadores.
  * @param {Registro} informacoesPrimeiroJogador - Registro contendo o nome e o símbolo do primeiro jogador.
  * @param {Registro} informacoesSegundoJogador - Registro contendo o nome e o símbolo do segundo jogador.
@@ -142,10 +166,12 @@ botaoReiniciar.addEventListener("click", reiniciar);
 preencherInformacoesJogadores(primeiroJogador, segundoJogador);
 desenharTabuleiro();
 
+// document.getElementById("conteudo-jogo").innerHTML += '<div id="jogo-finalizado"></div>'
+
 // Adicionar código js correspondente à página do tabuleiro
 const novoScript = document.createElement("script");
 novoScript.setAttribute("src", "./scripts/main.js");
 novoScript.setAttribute("type", "module");
 document.body.appendChild(novoScript);
 
-export { removerAcaoBotoes };
+export { removerAcaoBotoes, partidaFinalizada };

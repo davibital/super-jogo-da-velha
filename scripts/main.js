@@ -3,7 +3,7 @@ import { sortearPoder, listaPoderes } from './poderes.js';
 import { verificarVencedor } from './verificacoes.js'
 import { gerarSequenciaTurnos } from './random.js';
 import { atualizarTabuleiroHTML, passarVez } from './actions.js';
-import { removerAcaoBotoes } from './jogar.js';
+import { removerAcaoBotoes, partidaFinalizada } from './jogar.js';
 
 // Obtendo as dimensões do tabuleiro, passando como parâmetro o elemento HTML que é uma div que possui a classe "grid-jogo"
 const dimensoes = obterDimensoesTabuleiro(document.querySelector("div>.grid-jogo"));
@@ -74,7 +74,7 @@ const temVencedor = () => {
       return jogadorVecedor;
     }, '');
 
-    console.log(`"${jogadorVencedor.nome}" VENCEU O JOGO!`); // alert(`${turnoAtual} VENCEU O JOGO!`);
+    partidaFinalizada(jogadorVencedor.nome);
     // Aqui podemos adicionar código para encerrar o jogo, se assim desejar
     return true;
   }
