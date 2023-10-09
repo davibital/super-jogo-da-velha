@@ -121,14 +121,13 @@ const criarListaPoderes = (poderes, probabilidade) => {
   // Caso seja 0%, você está "desativando" a mecânica, quem clicar nesse botão apenas perderá a vez
   if (probabilidade === 0) return [passarVez]
   else {
-    const tamanhoListaPassarVez = ((100 - probabilidade)/probabilidade) * poderes.length 
+    const tamanhoListaPassarVez = ((100 - probabilidade)/probabilidade) * (poderes.length - 1) // o '-1' retira a função inserirSimbolo da lógica, já que não consiste em um poder
     return [...poderes, ...utils.criarListaElementosIguais(perderAVez, tamanhoListaPassarVez)]
   }
 }
 
-//const poderes = [inserirSimbolo, alternarSimbolo]
 const poderes = [inserirSimbolo, embaralharJogoPequenoClique, alternarSimbolo, embaralharTabuleiro]
-const listaPoderes = criarListaPoderes(poderes, 100)
+const listaPoderes = criarListaPoderes(poderes, 30)
 
 /**
  * Função para sortear o poder do jogador e atribuir o poder a ele.
