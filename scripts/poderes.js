@@ -49,7 +49,9 @@ const embaralharTabuleiro = () => {
     })
   })
 
-  atualizarTabuleiroHTML()
+  atualizarTabuleiroHTML();
+
+  return true;
 }
 
 /**
@@ -137,19 +139,24 @@ const sortearPoder = (listaJogadores, sequenciaTurnos, poderes = listaPoderes) =
 
   const elementoPai = botao.parentElement;
 
-  const jogador = elementoPai.id.split("-")[1];
-  const indiceJogador = jogador == "primeiro" ? 0 : 1;
+  const jogador = listaJogadores.reduce((jogadorAtual, jogador) => {
+    const nomeJogador = elementoPai.querySelector(".nome").innerHTML;
+
+    if (jogador.nome == nomeJogador) jogadorAtual = jogador;
+
+    return jogadorAtual;
+  });
 
   // Sorteando o índice do poder do 1 até o último índice da lista de poderes, exlcuindo o primeiro índice pois é a ação padrão.
-  const indicePoder = Math.floor(Math.random() * (listaPoderes.length - 1) ) + 1;
+  const indicePoder = Math.floor(Math.random() * (listaPoderes.length - 1)) + 1;
 
   const poderSorteado = poderes[indicePoder];
 
-  listaJogadores[indiceJogador].poder = poderSorteado(sequenciaTurnos);
+  jogador.poder = poderSorteado(sequenciaTurnos);
 
   // Reatribuição do poder do jogador caso tenha perdido a vez, retorna para a ação padrão.
   if (indicePoder >= 3)
-    listaJogadores[indiceJogador].poder = poderes[0](sequenciaTurnos);
+    jogador.poder = poderes[0](sequenciaTurnos);
 }
 
 export { sortearPoder, listaPoderes };
