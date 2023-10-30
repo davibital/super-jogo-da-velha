@@ -125,7 +125,7 @@ const criarListaPoderes = (poderes, probabilidade) => {
 }
 
 const poderes = [inserirSimbolo, embaralharJogoPequenoClique, alternarSimbolo, embaralharTabuleiro]
-const listaPoderes = criarListaPoderes(poderes, 30)
+const listaPoderes = criarListaPoderes(poderes, 50)
 
 /**
  * Função para sortear o poder do jogador e atribuir o poder a ele.
